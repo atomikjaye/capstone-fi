@@ -11,7 +11,8 @@ User.destroy_all
 Review.destroy_all
 UserReview.destroy_all
 
-response = HTTParty.get('https://codicocodes.github.io/speedtyper-community/index.json');
+# Example of getting code
+response = HTTParty.get('https://raw.githubusercontent.com/atomikjaye/capstone-fi/main/codeBlockUrls.json');
 raw_code = HTTParty.get(JSON.parse(response.body)[0]["source"]);
 byebug
 
@@ -46,6 +47,8 @@ end
 #   Topic.create({ name: "objects" })
   
 # end
+
+
 
 def createReviews
   content = Faker::Lorem.paragraph(sentence_count: 2, supplemental: true, random_sentences_to_add: 4) 

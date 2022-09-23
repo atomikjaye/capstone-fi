@@ -1,5 +1,4 @@
 [
-  // JSON Modelled after https://github.com/codicocodes/speedtyper.dev
   {
     "name": "AllCombinationsOfSizeK.js ",
     "project": "TheAlgorithms",
@@ -63,7 +62,6 @@
     "source": "https://github.com/TheAlgorithms/JavaScript/raw/master/Backtracking/SumOfSubset.js",
     "language": "JavaScript"
   },
-  // Python
   {
     "name": " 2_hidden_layers_neural_network.py",
     "project": "TheAlgorithms",
