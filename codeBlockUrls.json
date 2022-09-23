@@ -1,0 +1,103 @@
+[
+  // JSON Modelled after https://github.com/codicocodes/speedtyper.dev
+  {
+    "name": "AllCombinationsOfSizeK.js ",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/JavaScript",
+    "license": "GNU General Public License v3.0",
+    "licenseUrl": "https://github.com/TheAlgorithms/JavaScript/raw/master/LICENSE",
+    "source": "https://github.com/TheAlgorithms/JavaScript/raw/master/Backtracking/AllCombinationsOfSizeK.js",
+    "language": "JavaScript"
+  },
+  {
+    "name": "GeneratePermutations.js ",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/JavaScript",
+    "license": "GNU General Public License v3.0",
+    "licenseUrl": "https://github.com/TheAlgorithms/JavaScript/raw/master/LICENSE",
+    "source": "https://github.com/TheAlgorithms/JavaScript/raw/master/Backtracking/GeneratePermutations.js",
+    "language": "JavaScript"
+  },
+  {
+    "name": "KnightTour.js ",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/JavaScript",
+    "license": "GNU General Public License v3.0",
+    "licenseUrl": "https://github.com/TheAlgorithms/JavaScript/raw/master/LICENSE",
+    "source": "https://github.com/TheAlgorithms/JavaScript/raw/master/Backtracking/KnightTour.js",
+    "language": "JavaScript"
+  },
+  {
+    "name": "NQueen.js ",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/JavaScript",
+    "license": "GNU General Public License v3.0",
+    "licenseUrl": "https://github.com/TheAlgorithms/JavaScript/raw/master/LICENSE",
+    "source": "https://github.com/TheAlgorithms/JavaScript/raw/master/Backtracking/NQueen.js",
+    "language": "JavaScript"
+  },
+  {
+    "name": "RatInAMaze.js ",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/JavaScript",
+    "license": "GNU General Public License v3.0",
+    "licenseUrl": "https://github.com/TheAlgorithms/JavaScript/raw/master/LICENSE",
+    "source": "https://github.com/TheAlgorithms/JavaScript/raw/master/Backtracking/RatInAMaze.js",
+    "language": "JavaScript"
+  },
+  {
+    "name": "Sudoku.js ",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/JavaScript",
+    "license": "GNU General Public License v3.0",
+    "licenseUrl": "https://github.com/TheAlgorithms/JavaScript/raw/master/LICENSE",
+    "source": "https://github.com/TheAlgorithms/JavaScript/raw/master/Backtracking/Sudoku.js",
+    "language": "JavaScript"
+  },
+  {
+    "name": "SumOfSubset.js ",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/JavaScript",
+    "license": "GNU General Public License v3.0",
+    "licenseUrl": "https://github.com/TheAlgorithms/JavaScript/raw/master/LICENSE",
+    "source": "https://github.com/TheAlgorithms/JavaScript/raw/master/Backtracking/SumOfSubset.js",
+    "language": "JavaScript"
+  },
+  // Python
+  {
+    "name": " 2_hidden_layers_neural_network.py",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/Python",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/TheAlgorithms/Python/raw/master/LICENSE.md",
+    "source": "https://github.com/TheAlgorithms/Python/raw/master/neural_network/2_hidden_layers_neural_network.py",
+    "language": "Python"
+  },
+  {
+    "name": " back_propagation_neural_network.py",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/Python",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/TheAlgorithms/Python/raw/master/LICENSE.md",
+    "source": "https://github.com/TheAlgorithms/Python/raw/master/neural_network/back_propagation_neural_network.py",
+    "language": "Python"
+  },
+  {
+    "name": " perceptron.py",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/Python",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/TheAlgorithms/Python/raw/master/LICENSE.md",
+    "source": "https://github.com/TheAlgorithms/Python/raw/master/neural_network/perceptron.py",
+    "language": "Python"
+  },
+  {
+    "name": " convolution_neural_network.py",
+    "project": "TheAlgorithms",
+    "projectUrl": "https://github.com/TheAlgorithms/Python",
+    "license": "MIT",
+    "licenseUrl": "https://github.com/TheAlgorithms/Python/raw/master/LICENSE.md",
+    "source": "https://github.com/TheAlgorithms/Python/raw/master/neural_network/convolution_neural_network.py",
+    "language": "Python"
+  }
+]
