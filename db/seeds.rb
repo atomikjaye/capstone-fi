@@ -11,7 +11,7 @@ User.destroy_all
 Review.destroy_all
 UserReview.destroy_all
 
-response = HTTParty.get('https://codicocodes.github.io/speedtyper-community/index.json');
+response = HTTParty.get('https://raw.githubusercontent.com/atomikjaye/capstone-fi/main/codeBlockUrls.json');
 raw_code = HTTParty.get(JSON.parse(response.body)[0]["source"]);
 byebug
 
