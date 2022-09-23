@@ -1,5 +1,5 @@
 class UserReview < ApplicationRecord
 
   belongs_to :user
-  belongs_to :reviews
+  belongs_to :review
 end
