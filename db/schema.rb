@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_23_020718) do
   end
 
   create_table "codes", force: :cascade do |t|
-    t.string "code_block"
+    t.text "code_block"
     t.boolean "is_hard"
     t.integer "points"
     t.string "lang"
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_23_020718) do
   end
 
   create_table "reviews", force: :cascade do |t|
-    t.string "content"
+    t.text "content"
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
