@@ -6,15 +6,13 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 require 'faker'
+require 'json'
 
 User.destroy_all
 Review.destroy_all
 UserReview.destroy_all
 
-# Example of getting code
-response = HTTParty.get('https://raw.githubusercontent.com/atomikjaye/capstone-fi/main/codeBlockUrls.json');
-raw_code = HTTParty.get(JSON.parse(response.body)[0]["source"]);
-byebug
+
 
 def createUser
   username = Faker::Internet.username
@@ -59,9 +57,31 @@ def createReviews
   }
 end
 
-# def createCode
-#   code_block
-# end
+# Example of getting code
+# response = HTTParty.get('https://raw.githubusercontent.com/atomikjaye/capstone-fi/main/codeBlockUrls.json');
+# responseBody = HTTParty.get(response.body);
+# raw_code = HTTParty.get(JSON.parse(response.body)[0]["source"]);
+# byebug
+
+def createCode
+  response = HTTParty.get('https://raw.githubusercontent.com/atomikjaye/capstone-fi/main/codeBlockUrls.json');
+  responseBody = JSON.parse(response.body)
+  for index in responseBody
+    # byebug
+    codeResponse = HTTParty.get(index["source"])
+    # byebug
+    codeBody = codeResponse.body
+    # byebug
+    codeBlock = Code.create({
+      code_block: codeBody,
+      is_hard: [true, false].sample,
+      points: Faker::Number.within(range: 300..1000),
+      lang: index["language"]
+    })
+    # pp codeBlock
+  end
+  
+end
 
 10.times {
   user = User.create(createUser)
@@ -72,6 +92,7 @@ end
       review_id: review.id
     }
   )
+  createCode();
     # createTopics();
 
 }
