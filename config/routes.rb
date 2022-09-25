@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :codes
   resources :reviews
   resources :user_reviews
-  resources :users
+  # resources :users , except: [:new, :edit]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -12,6 +12,13 @@ Rails.application.routes.draw do
 
     # route to test your configuration
     get '/hello', to: 'application#hello_world'
+
+    # SignUp Form
+    post "/login", to: "sessions#create"
+    delete "/logout", to: "sessions#destroy"
+  
+    post "/signup", to: "users#create"
+    get "/me", to: "users#show"
 
     get '*path',
     to: 'fallback#index',
