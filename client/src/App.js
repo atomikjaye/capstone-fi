@@ -6,29 +6,27 @@ import SignUp from "./component/Auth/SignUp";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./component/Base/NavBar"
 import Home from "./component/Base/Home"
+import CodeHome from "./component/Code/CodeHome"
 
 
 function App() {
   const [user, setUser] = useState(null);
+  const [codeBlocks, setCodeBlocks] = useState(null);
 
-  const fetchUsers = async () => {
-    const r = await fetch("/users");
-    const users = await r.json();
-    console.log("Users", users);
-    // dispatch(grabAllStories(stories));
-  }
+  // const fetchUsers = async () => {
+  //   const r = await fetch("/users");
+  //   const users = await r.json();
+  //   console.log("Users", users);
+  // }
 
   const fetchCode = async () => {
     const r = await fetch("/codes");
     const code = await r.json();
+    setCodeBlocks(code)
     console.log("Code", code);
-    // dispatch(grabAllStories(stories));
   }
 
   useEffect(() => {
-    // fetch("/users")
-    //   .then((r) => r.json())
-    //   .then((data) => console.log(data));
     fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => {
@@ -38,7 +36,7 @@ function App() {
       }
     });
 
-    fetchUsers();
+    // fetchUsers();
     fetchCode();
   }, []);
 
@@ -48,13 +46,15 @@ function App() {
     <>
       <NavBar user={user} setUser={setUser} />
       <main>
+        {/* Here is where we decide which routes you can get hit to. */}
         {user ? (
           <Routes>
-            <Route path="/" element={<Home />}>
-            </Route>
+            <Route path="/" element={<Home />} />
+            <Route path="/code-home" element={<CodeHome />} />
           </Routes>
         ) : (
           <Routes>
+            <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
             <Route path="/signup" element={<SignUp setUser={setUser} />} />
             <Route path="/login" element={<Login setUser={setUser} />} />
             <Route path="/" element={<Home />} />

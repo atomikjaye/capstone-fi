@@ -14,9 +14,8 @@ function NavBar({ user, setUser }) {
   return (
     <header>
       <div>
-        <Link to="/">Home</Link>
-      </div>
-      <div>
+        <Link to="/">Home</Link> | <Link to="/code-home">Code</Link>&nbsp;
+
         {user ? (
           <>
             <div><h2>{user.first_name} is logged in</h2></div>
@@ -25,8 +24,7 @@ function NavBar({ user, setUser }) {
           </>
         ) : (
           <>
-            <Link to="/signup">Signup</Link>
-            <Link to="/login">Login</Link>
+            | <Link to="/signup">Signup</Link> | <Link to="/login">Login</Link>
           </>
         )}
       </div>
