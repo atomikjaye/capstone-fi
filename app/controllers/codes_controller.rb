@@ -1,4 +1,5 @@
 class CodesController < ApplicationController
+  skip_before_action :authorize
   before_action :set_code, only: %i[ show update destroy ]
 
   # GET /codes
