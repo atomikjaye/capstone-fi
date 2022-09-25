@@ -22,3 +22,9 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+# Start
+* PostGres =  sudo service postgresql start
+* React = npm start --prefix client
+* Rails = rails s

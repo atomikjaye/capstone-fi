@@ -31,13 +31,17 @@ function App() {
     //   .then((data) => console.log(data));
     fetch("/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user));
+        r.json().then((user) => {
+          console.log(user);
+          setUser(user)
+        });
       }
     });
 
     fetchUsers();
     fetchCode();
   }, []);
+
 
 
   return (
