@@ -4,9 +4,12 @@ import { useState } from 'react';
 function Login({ setUser }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
     fetch("/login", {
       method: "POST",
       headers: {
@@ -14,10 +17,13 @@ function Login({ setUser }) {
       },
       body: JSON.stringify({ username, password }),
     })
-      .then((r) => r.json())
-      .then((user) => {
-        console.log(user)
-        setUser(user)
+      .then((r) => {
+        setIsLoading(false);
+        if (r.ok) {
+          r.json().then((user) => setUser(user));
+        } else {
+          r.json().then((err) => setErrors(err.errors))
+        }
       });
   }
 
@@ -40,7 +46,12 @@ function Login({ setUser }) {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       /><br />
-      <button type="submit">Login</button>
+      <button type="submit">{isLoading ? "Loading..." : "Login"}</button>
+
+      <br />
+      {errors.map((err) => (
+        <div key={err}>{err}</div>
+      ))}
     </form>
   );
 }
