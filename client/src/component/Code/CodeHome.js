@@ -1,14 +1,32 @@
 import React from "react";
-import { useState, useEffect } from "react";
-// import SignUp from "./SignUp";
+import Code from "./CodeCard"
+import { useState } from "react";
+import CodeCard from "./CodeCard";
+
+function CodeHome({ codeBlocksData }) {
+  // const [user, setUser] = useState(null);
+  let displayCodeBlocks = null;
+  if (codeBlocksData == null) {
+    console.log("Null Code")
+  } else {
+    console.log(codeBlocksData[0]);
+    displayCodeBlocks = codeBlocksData.map((code) => {
+      return <CodeCard
+        id={code.id}
+        code={code.code_block}
+        isHard={code.is_hard}
+        points={code.points}
+        lang={code.lang}
+
+      />
+    })
+  }
 
 
 
-function CodeHome(codeBlocks) {
-  const [user, setUser] = useState(null);
 
-  console.log(codeBlocks);
-  console.log({ codeBlocks });
+
+  // console.log(codeBlocksData.length);
   // useEffect(() => {
   //   fetch("/me").then((r) => {
   //     if (r.ok) {
@@ -24,7 +42,10 @@ function CodeHome(codeBlocks) {
 
   return (
     <>
-      <div>CODE HOME</div>
+      <h1>CODE LISTS</h1>
+      <div>
+        {displayCodeBlocks}
+      </div>
     </>
   );
 
