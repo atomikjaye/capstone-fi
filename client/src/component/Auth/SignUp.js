@@ -9,6 +9,9 @@ function SignUp({ setUser }) {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
+  const [errors, setErrors] = useState([]);
+  const [isSigningUp, setIsSigningUp] = useState(false);
+
   function handleSubmit(e) {
     e.preventDefault();
     fetch("/signup", {
@@ -27,8 +30,18 @@ function SignUp({ setUser }) {
         password_confirmation: passwordConfirmation,
       }),
     })
-      .then((r) => r.json())
-      .then(setUser);
+      .then((r) => {
+        setIsSigningUp(false);
+        if (r.ok) {
+          r.json().then(setUser)
+        } else {
+          r.json().then((err) => {
+            console.log(err)
+            setErrors(err.errors)
+          })
+        }
+
+      });
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -74,7 +87,11 @@ function SignUp({ setUser }) {
         value={passwordConfirmation}
         onChange={(e) => setPasswordConfirmation(e.target.value)}
       /><br />
-      <button type="submit">Submit</button>
+      <button type="submit">{isSigningUp ? "Signing up..." : "Submit"}</button>
+      <br />
+      {errors.map((err) => (
+        <div key={err}>{err}</div>
+      ))}
     </form>
   );
 

@@ -38,6 +38,8 @@ function App() {
           console.log(user);
           setUser(user)
         });
+      } else {
+        console.log("/me: No user set");
       }
     });
 
