@@ -9,6 +9,6 @@ class User < ApplicationRecord
 
   private 
   def has_first_name
-    errors.add(:base, 'First Name cannot be blank') if first_name.blank?
+    errors.add(:base, 'First Name can\'t be blank') if first_name.blank?
   end
 end

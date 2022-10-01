@@ -12,6 +12,7 @@ function CodeHome({ codeBlocksData }) {
     console.log(codeBlocksData[0]);
     displayCodeBlocks = codeBlocksData.map((code) => {
       return <CodeCard
+        key={code.id}
         id={code.id}
         code={code.code_block}
         isHard={code.is_hard}

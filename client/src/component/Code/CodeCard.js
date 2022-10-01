@@ -11,14 +11,13 @@ function CodeCard({ id, code, isHard, points, lang }) {
   //   console.log("Null Code")
   // } else {
   //   console.log(codeBlocksData[0]);
-  console.log(isHard)
+  // console.log(isHard)
   // }
 
   return (
     <>
       <div key={id}>
-        <textarea name="" id="" cols="50" rows="10">
-          {code}
+        <textarea name="" id="" cols="50" rows="10" value={code} readOnly>
         </textarea><br />
         <strong>Ease Lvl:</strong> {isHard ? "Hard" : "Easy"}<br />
         <strong>Points:</strong> {points}<br />
