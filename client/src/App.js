@@ -9,6 +9,7 @@ import Home from "./component/Base/Home"
 import CodeHome from "./component/Code/CodeHome"
 import CodePlay from "./component/Code/CodePlay"
 import { UserContext } from "./UserContext";
+import UserProfile from "./component/User/UserProfile";
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
+              <Route path="/profile" element={<UserProfile />} />
             </Routes>
           ) : (
             <Routes>
@@ -68,6 +70,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<UserProfile />} />
             </Routes>
           )}
 
