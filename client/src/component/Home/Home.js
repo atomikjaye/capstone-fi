@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Leaderboard from "./Leaderboard";
 // import { useState, useEffect } from "react";
 // import SignUp from "./SignUp";
 // import Login from "./Login";
@@ -19,7 +20,7 @@ function Home() {
 
   return (
     <>
-      hi
+      <Leaderboard />
     </>
   );
 }

@@ -5,7 +5,7 @@ import Login from "./component/Auth/Login";
 import SignUp from "./component/Auth/SignUp";
 import { Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "./component/Base/NavBar"
-import Home from "./component/Base/Home"
+import Home from "./component/Home/Home"
 import CodeHome from "./component/Code/CodeHome"
 import CodePlay from "./component/Code/CodePlay"
 import { UserContext } from "./UserContext";
@@ -15,16 +15,18 @@ import ErrorNotFound from "./component/Base/ErrorNotFound";
 
 function App() {
   const [user, setUser] = useState(null);
-  // const [user, setUser] = useState(null);
+  const [usersList, setUsersList] = useState(null);
   const [codeBlocks, setCodeBlocks] = useState(null);
 
-  const value = useMemo(() => ({ user, setUser }), [user, setUser])
+  const value = useMemo(() => ({ user, setUser, usersList, setUsersList }), [user, setUser, usersList, setUsersList])
+  // const usersListValue = useMemo(() => ({ usersList, setUsersList }), [usersList, setUsersList])
 
-  // const fetchUsers = async () => {
-  //   const r = await fetch("/users");
-  //   const users = await r.json();
-  //   console.log("Users", users);
-  // }
+  const fetchUsers = async () => {
+    const r = await fetch("/users");
+    const users = await r.json();
+    console.log("Users App.js", users);
+    setUsersList(users)
+  }
 
   const fetchCode = async () => {
     const r = await fetch("/codes");
@@ -45,8 +47,9 @@ function App() {
       }
     });
 
-    // fetchUsers();
+    fetchUsers();
     fetchCode();
+
   }, []);
 
 
