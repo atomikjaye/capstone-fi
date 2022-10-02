@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 
 function NavBar() {
+  const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
 
   function handleLogout() {
@@ -10,6 +11,7 @@ function NavBar() {
       method: "DELETE"
     }).then(() => {
       setUser();
+      navigate("/login")
     });
   }
 
@@ -21,15 +23,17 @@ function NavBar() {
         {user ? (
           <>
             <NavLink to="/profile">Profile</NavLink>
-            <div><h2>{user.first_name} is logged in</h2></div>
-            {/* console.log(user) */}
-            <button onClick={handleLogout}>Logout</button>
+            <span> &nbsp;♥&nbsp;&nbsp;{user.first_name} is logged in <button onClick={handleLogout}>Logout</button>
+              {/* console.log(user) */}
+
+            </span>
           </>
         ) : (
           <>
             <NavLink to="/signup">Signup</NavLink> | <NavLink to="/login">Login</NavLink>
           </>
         )}
+        <hr />
       </div>
     </header>
   );

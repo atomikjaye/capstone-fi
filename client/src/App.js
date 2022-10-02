@@ -3,13 +3,14 @@ import { useState, useEffect, useMemo } from "react";
 // import SignUp from "./SignUp";
 import Login from "./component/Auth/Login";
 import SignUp from "./component/Auth/SignUp";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import NavBar from "./component/Base/NavBar"
 import Home from "./component/Base/Home"
 import CodeHome from "./component/Code/CodeHome"
 import CodePlay from "./component/Code/CodePlay"
 import { UserContext } from "./UserContext";
 import UserProfile from "./component/User/UserProfile";
+import ErrorNotFound from "./component/Base/ErrorNotFound";
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
               <Route path="/profile" element={<UserProfile />} />
+              <Route path="*" component={ErrorNotFound} />
             </Routes>
           ) : (
             <Routes>
@@ -70,11 +72,10 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<UserProfile />} />
+              {/* <Route path="/profile" element={<Navigate to="/" />} /> */}
+              <Route path="*" element={<ErrorNotFound />} />
             </Routes>
           )}
-
-
         </main>
       </UserContext.Provider>
     </>

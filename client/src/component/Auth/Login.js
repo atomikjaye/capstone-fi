@@ -1,7 +1,9 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../UserContext';
 
 function Login() {
+  const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,7 +23,10 @@ function Login() {
       .then((r) => {
         setIsLoading(false);
         if (r.ok) {
-          r.json().then((user) => setUser(user));
+          r.json().then((user) => {
+            setUser(user);
+            navigate('/profile');
+          });
         } else {
           r.json().then((err) => setErrors(err.errors))
         }

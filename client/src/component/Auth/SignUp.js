@@ -1,7 +1,12 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useContext, useState } from "react";
+import { UserContext } from "../../UserContext";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
-function SignUp({ setUser }) {
+
+
+function SignUp() {
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
@@ -33,7 +38,10 @@ function SignUp({ setUser }) {
       .then((r) => {
         setIsSigningUp(false);
         if (r.ok) {
-          r.json().then(setUser)
+          r.json().then((user) => {
+            setUser(user);
+            navigate('/profile');
+          })
         } else {
           r.json().then((err) => {
             console.log(err)

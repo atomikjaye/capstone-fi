@@ -5,10 +5,10 @@ import { UserContext } from "../../UserContext";
 function UserProfile() {
   const { user } = useContext(UserContext);
   // if user doesn't exist, redirect to home page
+  console.log("USER", user)
 
   return (
     <div>
-
       {user ?
         <>
           <h1>Welcome, {user.first_name}</h1>
@@ -16,16 +16,15 @@ function UserProfile() {
           <hr />
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Avatar:</strong> {user.avatar_url != '' ? <img src={user.avatar_url} /> : "Not set"}</p>
-          <p><strong>Admin:</strong> {user.is_admin ? "You are an admin" : "You are not and admin"}</p>
+          <p><strong>Admin:</strong> {user.is_admin ? "You are an admin" : "You are not an admin"}</p>
         </>
         :
         <>
-          <p>"hi"</p>
-          <Navigate to="/" />
+          <p>"Loading..."</p>
+          {/* <Navigate to="/" /> */}
         </>
       }
     </div>
-
   );
 }
 
