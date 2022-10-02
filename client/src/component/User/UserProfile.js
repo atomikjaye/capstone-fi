@@ -15,7 +15,7 @@ function UserProfile() {
           <p>You currently have {user.points}</p>
           <hr />
           <p><strong>Email:</strong> {user.email}</p>
-          <p><strong>Avatar:</strong> {user.avatar_url != '' ? <img src={user.avatar_url} /> : "Not set"}</p>
+          <p><strong>Avatar:</strong> {user.avatar_url != '' ? <img src={user.avatar_url} width="50px" /> : "Not set"}</p>
           <p><strong>Admin:</strong> {user.is_admin ? "You are an admin" : "You are not an admin"}</p>
         </>
         :
