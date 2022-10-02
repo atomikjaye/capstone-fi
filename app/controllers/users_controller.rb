@@ -19,12 +19,17 @@ class UsersController < ApplicationController
   # end
   # END OF THIS WORKED
 
-  skip_before_action :authorize, only: :create
+  skip_before_action :authorize, only: [:create, :show_all]
 
   def create
     user = User.create!(user_params)
     session[:user_id] = user.id
     render json: user, status: :created
+  end
+
+  def show_all
+    users = User.all
+    render json:users
   end
 
   def show

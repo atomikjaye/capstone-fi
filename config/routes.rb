@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
     # route to test your configuration
     get '/hello', to: 'application#hello_world'
+    get '/users', to: 'users#show_all'
 
     # SignUp Form
     post "/login", to: "sessions#create"
