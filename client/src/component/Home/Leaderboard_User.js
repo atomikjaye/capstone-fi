@@ -12,7 +12,11 @@ function Leaderboard_User() {
   if (usersList == null) {
     console.log("Users List is NULL")
   } else {
-    userListPopulate = usersList.map((user, index) => {
+    let userListSort = usersList.sort((curr, prev) => {
+      return prev.points - curr.points
+    })
+
+    userListPopulate = userListSort.map((user, index) => {
       return (
         <tr key={user.id}>
           <td className="is-centered">
@@ -33,6 +37,8 @@ function Leaderboard_User() {
     })
 
   }
+
+
 
 
 
