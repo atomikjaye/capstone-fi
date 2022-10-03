@@ -1,0 +1,15 @@
+.nes-container {
+  /* align-self: center; */
+  margin: 80px auto;
+  width: 500px;
+}
+
+
+
+.is-centered {
+  text-align: center;
+}
+
+.points {
+  font-size: 2em;
+}
