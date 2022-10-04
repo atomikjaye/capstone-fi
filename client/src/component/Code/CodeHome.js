@@ -1,9 +1,12 @@
 import React from "react";
-import Code from "./CodeCard"
-import { useState } from "react";
+
 import CodeCard from "./CodeCard";
 
 function CodeHome({ codeBlocksData }) {
+
+
+  // const { id } = useParams();
+
   // const [user, setUser] = useState(null);
   let displayCodeBlocks = null;
   if (codeBlocksData == null) {
@@ -47,6 +50,7 @@ function CodeHome({ codeBlocksData }) {
       <div>
         {displayCodeBlocks}
       </div>
+
     </>
   );
 

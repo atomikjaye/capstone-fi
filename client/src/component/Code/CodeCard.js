@@ -1,10 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Route, useLocation, Link } from "react-router-dom";
 // import { useState } from "react";
 
 
 
 function CodeCard({ id, code, isHard, points, lang }) {
+
+
+  const { pathname } = useLocation();
   // const [user, setUser] = useState(null);
 
   // if (codeBlocksData == null) {
@@ -14,6 +17,8 @@ function CodeCard({ id, code, isHard, points, lang }) {
   // console.log(isHard)
   // }
 
+  // Use Effect Code Block Here?
+
   return (
     <>
       <div key={id}>
@@ -22,7 +27,7 @@ function CodeCard({ id, code, isHard, points, lang }) {
         <strong>Ease Lvl:</strong> {isHard ? "Hard" : "Easy"}<br />
         <strong>Points:</strong> {points}<br />
         <strong>Language:</strong> {lang}
-        {/* <Link to=/code></Link> */}
+        <Link to={`${pathname}/${id}`}> Find Code</Link>
 
       </div>
     </>

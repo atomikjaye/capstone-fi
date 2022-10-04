@@ -32,10 +32,8 @@ function Leaderboard_User() {
           </td>
 
         </tr>
-
       )
     })
-
   }
 
 

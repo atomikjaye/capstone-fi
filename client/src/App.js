@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 // import SignUp from "./SignUp";
 import Login from "./component/Auth/Login";
 import SignUp from "./component/Auth/SignUp";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useParams, useLocation } from "react-router-dom";
 import NavBar from "./component/Base/NavBar"
 import Home from "./component/Home/Home"
 import CodeHome from "./component/Code/CodeHome"
@@ -17,6 +17,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [usersList, setUsersList] = useState(null);
   const [codeBlocks, setCodeBlocks] = useState(null);
+  const { pathname } = useLocation();
 
   const value = useMemo(() => ({ user, setUser, usersList, setUsersList }), [user, setUser, usersList, setUsersList])
   // const usersListValue = useMemo(() => ({ usersList, setUsersList }), [usersList, setUsersList])
@@ -65,6 +66,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
+              <Route path={`/code-home/:codeId`} element={<CodePlay />} />
               <Route path="/profile" element={<UserProfile />} />
               <Route path="*" component={ErrorNotFound} />
             </Routes>
