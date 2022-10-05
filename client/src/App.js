@@ -66,7 +66,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
-              <Route path={`/code-home/:codeId`} element={<CodePlay />} />
+              <Route path={`/code-home/:codeId`} element={<CodePlay codeBlocksData={codeBlocks} />} />
               <Route path="/profile" element={<UserProfile />} />
               <Route path="*" component={ErrorNotFound} />
             </Routes>

@@ -21,7 +21,6 @@ function CodeHome({ codeBlocksData }) {
         isHard={code.is_hard}
         points={code.points}
         lang={code.lang}
-
       />
     })
   }

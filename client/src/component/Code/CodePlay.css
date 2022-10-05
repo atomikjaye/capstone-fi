@@ -1,0 +1,20 @@
+.nes-container {
+  width: 700px !important;
+  margin: 80px auto !important;
+}
+
+.typing-text {
+  text-align: left;
+  font-family: 'Courier New', Courier, monospace;
+  /* word-break: break-all; */
+  /* white-space: break-spaces; */
+}
+
+.nes-badge span.is-warning:first-child {
+  position: unset;
+  padding: 2px;
+}
+
+button.nes-btn {
+  margin: 4px !important;
+}
