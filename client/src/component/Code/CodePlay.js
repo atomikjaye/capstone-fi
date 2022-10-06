@@ -7,6 +7,7 @@ function CodePlay({ codeBlocksData }) {
   const { codeId } = useParams();
   const [currCharIndex, setCurrCharIndex] = useState(0);
   const [currInput, setCurrInput] = useState("");
+  const [correctCounter, setCorrectCounter] = useState(0);
   let DEBUG = true;
 
   // Put input in focus on keydown
@@ -71,6 +72,8 @@ function CodePlay({ codeBlocksData }) {
     // debugger
     const { value } = e.target;
     const { key } = e;
+    const { keyCode } = e;
+    const { repeat } = e;
 
     // If keycode is in a certain range for letters and numbers
 
@@ -84,17 +87,51 @@ function CodePlay({ codeBlocksData }) {
     console.log("TYPED CHAR Index", typedChar)
     console.log("INDEX", currCharIndex)
 
-    if (characters[currCharIndex] === key) {
-      console.log("correct")
-      if (DEBUG) console.log(characters[currCharIndex], key)
-    } else {
-      console.log("incorrect")
-      if (DEBUG) console.log(characters[currCharIndex], key)
-    }
-    setCurrCharIndex(currCharIndex + 1);
-    if (key != "Enter" && key != "Shift") {
+    // We testing what inputs are taken in
+    // all numbers and letters
+    // 48 - 90
+    // 186 > 222 random stuff
+
+
+
+
+
+    //if ((key > 48 && key < 90) || (key >= 186 && key <= 222))  // Include Only letters and symbols
+    // ^ Letters & Numbers     ^ Symbols
+    // if ((key >= 8 && key <= 46) || (key >= 91 && key <= 145)) // LETTERS and symbols ONLY
+    //    
+
+    // if (repeat !== true && (key != "Enter" && key != "Shift" && key != "Tab" && key != "Control")) {
+    if (repeat !== true && !((keyCode >= 8 && keyCode <= 31) || (keyCode >= 33 && keyCode <= 46) || (keyCode >= 91 && keyCode <= 145))) {
+      console.log(keyCode);
+      if (characters[currCharIndex] === key) {
+        console.log("correct")
+        // Init to inactive
+        // Ad person types it's either correct or incorrect
+        // change class
+        // If currCharIndex is correct, add to the classList
+        //
+        document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('correct');
+        // add to correctCounter and do some math to calculate points
+        setCorrectCounter(correctCounter + 1);
+        if (DEBUG) console.log("CORRECT", correctCounter);
+        if (DEBUG) console.log(characters[currCharIndex], key)
+      } else {
+        console.log(keyCode);
+        console.log("incorrect")
+        document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('incorrect');
+        if (DEBUG) console.log(characters[currCharIndex], key)
+      }
+      setCurrCharIndex(currCharIndex + 1);
       setCurrInput(value + key)
     }
+    // if key is repeated,do not add to index
+    // if key is any Shift... do not add to the Index
+    if (key != "Enter" && key != "Shift" && key != "Tab") {
+    }
+
+    // If ley is backspace, -1 from index, and find item in document and remove class name
+
     console.log("AFTER", currInput)
 
 
@@ -130,9 +167,15 @@ function CodePlay({ codeBlocksData }) {
         {CountUpTimer(100)}
         <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={handleKeyDown} />
         <pre onClick={handleClickCode} className="typing-text">
-          {FINALCODE.map((letter, i) => (
-            <span key={i}>{letter}</span>
-          ))}
+          {FINALCODE.map((letter, i) => {
+
+            if (letter == " ") {
+              letter = "•";
+              return <span key={i} className={"space index-" + i}>{letter}</span>
+            }
+            return <span key={i} className={"index-" + i}>{letter}</span>
+          }
+          )}
 
         </pre>
 

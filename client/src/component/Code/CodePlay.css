@@ -18,3 +18,37 @@
 button.nes-btn {
   margin: 4px !important;
 }
+
+.incorrect {
+  background-color: rgba(231, 110, 85, 0.5);
+  color: #8c2022;
+}
+
+.correct {
+  background-color: rgba(146, 204, 65, 0.5);
+  color: rgb(74, 165, 46);
+}
+
+.space.correct {
+  background-color: rgba(146, 204, 65, 0.5);
+  color: rgba(74, 165, 46, 0.2);
+}
+
+.space {
+  color: rgba(0, 0, 0, 0.2);
+
+}
+
+/* .space {
+  visibility: hidden;
+  position: relative;
+}
+
+.space::after {
+  visibility: visible;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "•";
+  color: rgba(0, 0, 0, 0.2);
+} */
