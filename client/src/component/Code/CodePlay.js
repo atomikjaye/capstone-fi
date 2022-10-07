@@ -102,28 +102,61 @@ function CodePlay({ codeBlocksData }) {
     //    
 
     // if (repeat !== true && (key != "Enter" && key != "Shift" && key != "Tab" && key != "Control")) {
-    if (repeat !== true && !((keyCode >= 8 && keyCode <= 31) || (keyCode >= 33 && keyCode <= 46) || (keyCode >= 91 && keyCode <= 145))) {
-      console.log(keyCode);
-      if (characters[currCharIndex] === key) {
-        console.log("correct")
-        // Init to inactive
-        // Ad person types it's either correct or incorrect
-        // change class
-        // If currCharIndex is correct, add to the classList
-        //
-        document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('correct');
-        // add to correctCounter and do some math to calculate points
-        setCorrectCounter(correctCounter + 1);
-        if (DEBUG) console.log("CORRECT", correctCounter);
-        if (DEBUG) console.log(characters[currCharIndex], key)
+    if (repeat !== true &&
+      !(
+        (keyCode >= 9 && keyCode <= 31) ||
+        (keyCode >= 33 && keyCode <= 46) ||
+        (keyCode >= 91 && keyCode <= 145))) {
+
+      if (keyCode === 8 && currCharIndex >= 0) {
+        // iF keyCode is a backspace
+        // remove current class in current index and go back to last place
+        console.log("*********************************************************")
+        console.log("CURRENT INPUT BEFORE BACKSPACE", currInput)
+        console.log("SUBSTRING", currInput.substring(0, currInput.length - 1))
+        // debugger
+        // currInput.split("").slice(0,-1).join("")
+        let newCurrInput = currInput.split("").slice(0, -1).join("")
+        setCurrInput(newCurrInput);
+        // state not updating quickly
+
+        console.log("CURRENT INPUT AFTER BACKSPACE", currInput)
+        console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
+        // remove one from correct
+        // maybe keep track of backspaces for points
+        console.log("currInput ARRAY IN Backspace", currInput.split(""))
+        document.querySelector(`span.${"index-" + currCharIndex}`).classList.remove('correct');
+        document.querySelector(`span.${"index-" + currCharIndex}`).classList.remove('incorrect');
+        setCurrCharIndex(currCharIndex - 1);
+        console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
+        // debugger
+        console.log("*********************************************************")
+        // setCurrInput(currInput.s)
+
       } else {
+
         console.log(keyCode);
-        console.log("incorrect")
-        document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('incorrect');
-        if (DEBUG) console.log(characters[currCharIndex], key)
+        if (characters[currCharIndex] === key) {
+          console.log("correct")
+          // Init to inactive
+          // Ad person types it's either correct or incorrect
+          // change class
+          // If currCharIndex is correct, add to the classList
+          //
+          document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('correct');
+          // add to correctCounter and do some math to calculate points
+          setCorrectCounter(correctCounter + 1);
+          if (DEBUG) console.log("CORRECT", correctCounter);
+          if (DEBUG) console.log(characters[currCharIndex], key)
+        } else {
+          console.log(keyCode);
+          console.log("incorrect")
+          document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('incorrect');
+          if (DEBUG) console.log(characters[currCharIndex], key)
+        }
+        setCurrCharIndex(currCharIndex + 1);
+        setCurrInput(value + key)
       }
-      setCurrCharIndex(currCharIndex + 1);
-      setCurrInput(value + key)
     }
     // if key is repeated,do not add to index
     // if key is any Shift... do not add to the Index
