@@ -17,9 +17,10 @@ function CodePlay({ codeBlocksData }) {
   // }
   let codeInputField = useRef(null);
 
+  // Infinitw call w/o dependency
   useEffect(() => {
     codeInputField.current.focus();
-  })
+  }, [])
 
   // const user = useContext(UserContext);
   // if (DEBUG) console.log(codeBlocksData);
@@ -41,31 +42,31 @@ function CodePlay({ codeBlocksData }) {
   //   setCurrInput(e.target.value);
   // }
 
-  const handleKqeyDown = (e) => {
-    if (DEBUG) console.log(e.key);
-    if (DEBUG) console.log(e);
-    if (DEBUG) console.log("CODE INPUT: ", currInput)
+  // const handleKqeyDown = (e) => {
+  //   if (DEBUG) console.log(e.key);
+  //   if (DEBUG) console.log(e);
+  //   if (DEBUG) console.log("CODE INPUT: ", currInput)
 
-    // Handle match
-    const characters = strippedCode;
-    let typedChar = currInput.split("");
-    // if (DEBUG) console.log(strippedCode);
-    if (DEBUG) console.log("TYPED CHARACTER", typedChar);
-    // if backspace, lessed index
-    // if tab. add to index and spaces.
+  //   // Handle match
+  //   const characters = strippedCode;
+  //   let typedChar = currInput.split("");
+  //   // if (DEBUG) console.log(strippedCode);
+  //   if (DEBUG) console.log("TYPED CHARACTER", typedChar);
+  //   // if backspace, lessed index
+  //   // if tab. add to index and spaces.
 
-    if (characters[currCharIndex] === typedChar) {
-      if (DEBUG) console.log("correct");
-      if (DEBUG) console.log(currCharIndex)
-      if (DEBUG) console.log(characters[currCharIndex], typedChar);
-    } else {
-      if (DEBUG) console.log("incorrect");
-      if (DEBUG) console.log("Current Index", currCharIndex)
-      if (DEBUG) console.log("Compare codeString to currTyped", characters[currCharIndex], typedChar);
-    }
-    setCurrCharIndex(currCharIndex => currCharIndex + 1);
-    if (DEBUG) console.log(currCharIndex);
-  }
+  //   if (characters[currCharIndex] === typedChar) {
+  //     if (DEBUG) console.log("correct");
+  //     if (DEBUG) console.log(currCharIndex)
+  //     if (DEBUG) console.log(characters[currCharIndex], typedChar);
+  //   } else {
+  //     if (DEBUG) console.log("incorrect");
+  //     if (DEBUG) console.log("Current Index", currCharIndex)
+  //     if (DEBUG) console.log("Compare codeString to currTyped", characters[currCharIndex], typedChar);
+  //   }
+  //   setCurrCharIndex(currCharIndex => currCharIndex + 1);
+  //   if (DEBUG) console.log(currCharIndex);
+  // }
 
   const handleKeyDown = (e) => {
     // setCurrInput(e.target.value)
@@ -123,11 +124,13 @@ function CodePlay({ codeBlocksData }) {
         console.log("CURRENT INPUT AFTER BACKSPACE", currInput)
         console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
         // remove one from correct
+        const newCharIndex = currCharIndex - 1;
         // maybe keep track of backspaces for points
         console.log("currInput ARRAY IN Backspace", currInput.split(""))
-        document.querySelector(`span.${"index-" + currCharIndex}`).classList.remove('correct');
-        document.querySelector(`span.${"index-" + currCharIndex}`).classList.remove('incorrect');
-        setCurrCharIndex(currCharIndex - 1);
+        document.querySelector(`span.${"index-" + newCharIndex}`).classList.remove('correct');
+        document.querySelector(`span.${"index-" + newCharIndex}`).classList.remove('incorrect');
+        console.log("SPAN", document.querySelector(`span.${"index-" + currCharIndex}`));
+        setCurrCharIndex(currInput.length - 1);
         console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
         // debugger
         console.log("*********************************************************")
@@ -154,7 +157,7 @@ function CodePlay({ codeBlocksData }) {
           document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('incorrect');
           if (DEBUG) console.log(characters[currCharIndex], key)
         }
-        setCurrCharIndex(currCharIndex + 1);
+        setCurrCharIndex(currInput.length + 1);
         setCurrInput(value + key)
       }
     }
@@ -202,7 +205,7 @@ function CodePlay({ codeBlocksData }) {
         <pre onClick={handleClickCode} className="typing-text">
           {FINALCODE.map((letter, i) => {
 
-            if (letter == " ") {
+            if (letter == " " || letter == " ") {
               letter = "•";
               return <span key={i} className={"space index-" + i}>{letter}</span>
             }
