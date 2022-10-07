@@ -78,15 +78,15 @@ function CodePlay({ codeBlocksData }) {
 
     // If keycode is in a certain range for letters and numbers
 
-    console.log("BEFORE", e.target.value, e)
+    if (DEBUG) console.log("BEFORE", e.target.value, e)
     // Assigning characters to FINALCODE ARRAY
     const characters = FINALCODE;
     // Making currInput an ARRAY
     let typedChar = value.split("")[currCharIndex];
     // debugger
-    console.log("TYPED CHAR ARRAY", currInput.split(""))
-    console.log("TYPED CHAR Index", typedChar)
-    console.log("INDEX", currCharIndex)
+    if (DEBUG) console.log("TYPED CHAR ARRAY", currInput.split(""))
+    if (DEBUG) console.log("TYPED CHAR Index", typedChar)
+    if (DEBUG) console.log("INDEX", currCharIndex)
 
     // We testing what inputs are taken in
     // all numbers and letters
@@ -108,39 +108,42 @@ function CodePlay({ codeBlocksData }) {
         (keyCode >= 9 && keyCode <= 31) ||
         (keyCode >= 33 && keyCode <= 46) ||
         (keyCode >= 91 && keyCode <= 145))) {
-
-      if (keyCode === 8 && currCharIndex >= 0) {
+      // If character is a backspace and the Index is not "0"
+      if (keyCode === 8 && currInput.length >= 0) {
         // iF keyCode is a backspace
         // remove current class in current index and go back to last place
-        console.log("*********************************************************")
-        console.log("CURRENT INPUT BEFORE BACKSPACE", currInput)
-        console.log("SUBSTRING", currInput.substring(0, currInput.length - 1))
+        if (DEBUG) console.log("*********************************************************")
+        if (DEBUG) console.log("CURRENT INPUT BEFORE BACKSPACE", currInput)
+        if (DEBUG) console.log("SUBSTRING", currInput.substring(0, currInput.length - 1))
         // debugger
         // currInput.split("").slice(0,-1).join("")
         let newCurrInput = currInput.split("").slice(0, -1).join("")
         setCurrInput(newCurrInput);
         // state not updating quickly
 
-        console.log("CURRENT INPUT AFTER BACKSPACE", currInput)
-        console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
+        if (DEBUG) console.log("CURRENT INPUT AFTER BACKSPACE", currInput)
+        if (DEBUG) console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
         // remove one from correct
         const newCharIndex = currCharIndex - 1;
         // maybe keep track of backspaces for points
-        console.log("currInput ARRAY IN Backspace", currInput.split(""))
-        document.querySelector(`span.${"index-" + newCharIndex}`).classList.remove('correct');
-        document.querySelector(`span.${"index-" + newCharIndex}`).classList.remove('incorrect');
-        console.log("SPAN", document.querySelector(`span.${"index-" + currCharIndex}`));
-        setCurrCharIndex(currInput.length - 1);
-        console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
+        if (DEBUG) console.log("currInput ARRAY IN Backspace", currInput.split(""))
+        let characterSpan = document.querySelector(`span.${"index-" + newCharIndex}`);
+        if (characterSpan !== null) {
+          characterSpan.classList.remove('correct');
+          characterSpan.classList.remove('incorrect');
+          setCurrCharIndex(currInput.length - 1);
+        }
+        if (DEBUG) console.log("SPAN", document.querySelector(`span.${"index-" + currCharIndex}`));
+        if (DEBUG) console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
         // debugger
-        console.log("*********************************************************")
+        if (DEBUG) console.log("*********************************************************")
         // setCurrInput(currInput.s)
 
       } else {
 
-        console.log(keyCode);
+        if (DEBUG) console.log(keyCode);
         if (characters[currCharIndex] === key) {
-          console.log("correct")
+          if (DEBUG) console.log("correct")
           // Init to inactive
           // Ad person types it's either correct or incorrect
           // change class
@@ -152,8 +155,8 @@ function CodePlay({ codeBlocksData }) {
           if (DEBUG) console.log("CORRECT", correctCounter);
           if (DEBUG) console.log(characters[currCharIndex], key)
         } else {
-          console.log(keyCode);
-          console.log("incorrect")
+          if (DEBUG) console.log(keyCode);
+          if (DEBUG) console.log("incorrect")
           document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('incorrect');
           if (DEBUG) console.log(characters[currCharIndex], key)
         }
@@ -168,7 +171,7 @@ function CodePlay({ codeBlocksData }) {
 
     // If ley is backspace, -1 from index, and find item in document and remove class name
 
-    console.log("AFTER", currInput)
+    if (DEBUG) console.log("AFTER", currInput)
 
 
   }
