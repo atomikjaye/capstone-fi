@@ -1,14 +1,30 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { UserContext } from "../../UserContext";
+import CodeTimer from "./CodeTimer";
 import "./CodePlay.css"
 
 function CodePlay({ codeBlocksData }) {
+
+  const COUNTDOWN_SECONDS = 30;
+  // is game finished
+
+  const [isFinished, setIsFinished] = useState(false);
+
+  const { timeLeft, startCountdown, resetCountdown } = CodeTimer(COUNTDOWN_SECONDS);
+
   const { codeId } = useParams();
   // Index for currInput
   const [currCharIndex, setCurrCharIndex] = useState(0);
   // Current Input
   const [currInput, setCurrInput] = useState("");
+
+
+
+  // Set Finished to true if timeLeft is 0
+  // if (timeLeft >= 0) {
+  //   setIsFinished(true)
+  // }
 
   // Counter for Points
   const [correctCounter, setCorrectCounter] = useState(0);
@@ -32,6 +48,12 @@ function CodePlay({ codeBlocksData }) {
     console.log(`This is the currentCharIndex: ${currCharIndex} + this is the correctCounter ${correctCounter}`)
   }, [currCharIndex, correctCounter])
 
+  // useEffect(() => {
+  //   if (!timeLeft) {
+  //     console.log("Time is up!")
+  //   }
+  // })
+
   // const user = useContext(UserContext);
   // if (DEBUG) console.log(codeBlocksData);
 
@@ -40,6 +62,7 @@ function CodePlay({ codeBlocksData }) {
   // let strippedCode = codeBlock.code_block;
   // let strippedCode = codeBlock.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
   let FINALCODE = strippedCode.split("");
+  let points = codeBlock.points;
 
   console.log(codeBlock);
   console.log(FINALCODE);
@@ -89,6 +112,7 @@ function CodePlay({ codeBlocksData }) {
     setCurrInput("")
     // Counter for Points
     setCorrectCounter(0)
+    resetCountdown()
 
     // get ARRAY OF SPAN CLASSES
     //REMOVE CLASSES
@@ -104,6 +128,7 @@ function CodePlay({ codeBlocksData }) {
 
 
   const handleKeyDown = (e) => {
+    startCountdown();
     // setCurrInput(e.target.value)
     // debugger
     const { value } = e.target;
@@ -260,15 +285,28 @@ function CodePlay({ codeBlocksData }) {
     return <div className="nes-badge"><span className="is-warning">Time: {time}</span></div>
   }
 
+  const $code = document.querySelector('.typing-text');
+  console.log($code)
+  /// AUTO SCROLL
+  const autoscroll = () => {
 
+  }
+
+
+  // Set Finished to true if timeLeft is 0
+  if (timeLeft <= 0) {
+    // setIsFinished(true)
+    resetCountdown()
+  }
 
 
   return (
     <>
       <div className="nes-container with-title is-centered is-rounded">
 
-        <div className="typing-score-display">100</div>
-        {CountUpTimer(100)}
+        <div className="typing-score-display">Total Points: {points}</div>
+        {/* <CountUpTimer = {timeLeft} /> */}
+        {CountUpTimer(timeLeft)}
         <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={handleKeyDown} />
         <pre onClick={handleClickCode} className="typing-text wordwrap">
           {FINALCODE.map((letter, i) => {
