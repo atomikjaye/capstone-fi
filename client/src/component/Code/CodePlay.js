@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import "./CodePlay.css"
 
@@ -258,9 +258,12 @@ function CodePlay({ codeBlocksData }) {
         </pre>
 
 
-        <button className="nes-btn is-primary">Play Again</button>
-        <button className="nes-btn is-error">Go Home</button>
-        <button className="nes-btn" onClick={() => handleReset()}>&#8635;</button>
+        {/* <button className="nes-btn is-primary">Play Again</button> */}
+        <Link to="/">
+          <button className="nes-btn is-error">Go Home</button>
+        </Link>
+        &nbsp;
+        <button className="nes-btn" onClick={() => handleReset()}>Reset</button>
         <div></div>
 
       </div>
