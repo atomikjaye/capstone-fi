@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :user_code_reviews
+  resources :code_reviews
   resources :topics
   resources :code_topics
   resources :codes

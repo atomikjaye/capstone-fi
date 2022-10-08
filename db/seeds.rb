@@ -82,16 +82,21 @@ def createCode
   
 end
 
+createCode();
+
 10.times {
+|index|
+# byebug
   user = User.create(createUser)
   review = Review.create(createReviews)
-  user_review = UserReview.create(
+  # byebug
+  user_code_review = UserCodeReview.create(
     {
       user_id: user.id,
-      review_id: review.id
+      review_id: review.id,
+      code_id: index
     }
   )
-  createCode();
     # createTopics();
 
 }

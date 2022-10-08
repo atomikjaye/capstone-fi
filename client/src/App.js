@@ -53,6 +53,7 @@ function App() {
 
   }, []);
 
+  console.log(codeBlocks)
 
 
   return (
