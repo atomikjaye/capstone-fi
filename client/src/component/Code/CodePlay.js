@@ -35,10 +35,14 @@ function CodePlay({ codeBlocksData }) {
   // const user = useContext(UserContext);
   // if (DEBUG) console.log(codeBlocksData);
 
-  const codeBlock = codeBlocksData.find(code => code.id == 1);
-  let strippedCode = codeBlock.code_block;
+  const codeBlock = codeBlocksData.find(code => code.id == codeId);
+  let strippedCode = codeBlock.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
+  // let strippedCode = codeBlock.code_block;
   // let strippedCode = codeBlock.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
   let FINALCODE = strippedCode.split("");
+
+  console.log(codeBlock);
+  console.log(FINALCODE);
 
   // function codeHTML() {
   //   strippedCode.split("").forEach((char, index) => {
@@ -94,6 +98,7 @@ function CodePlay({ codeBlocksData }) {
     for (let i = 0; i < spanCode.length; i++) {
       spanCode[i].classList.remove('incorrect');
       spanCode[i].classList.remove('correct');
+      spanCode[i].classList.remove('current');
     }
   }
 
@@ -159,11 +164,15 @@ function CodePlay({ codeBlocksData }) {
 
         // FINAL COMMENT: We query select from document 
         let characterSpan = document.querySelector(`span.${"index-" + newCharIndex}`);
+        let nextCharacterSpan = document.querySelector(`span.${"index-" + (newCharIndex + 1)}`);
 
         // there is no spanClass, we skip adding or removing class from list
         if (characterSpan !== null) {
           characterSpan.classList.remove('correct');
           characterSpan.classList.remove('incorrect');
+          characterSpan.classList.remove('current');
+          characterSpan.classList.add('current');
+          nextCharacterSpan.classList.remove('current');
           // Here we update Index and Correct Counter
           setCurrCharIndex(currInput.length - 1);
           if (DEBUG) console.log(`%c Current Index after class removal ${currCharIndex}`, CURRENT_INDEX_CONSOLE)
@@ -179,16 +188,26 @@ function CodePlay({ codeBlocksData }) {
         // setCurrInput(currInput.s)
 
       } else {
-
+        let characterSpan = document.querySelector(`span.${"index-" + currCharIndex}`);
+        let previousCharacterSpan = document.querySelector(`span.${"index-" + (currCharIndex - 1)}`);
         if (DEBUG) console.log(keyCode);
         if (characters[currCharIndex] === key) {
+
           if (DEBUG) console.log("correct")
           // Init to inactive
           // Ad person types it's either correct or incorrect
           // change class
           // If currCharIndex is correct, add to the classList
           //
-          document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('correct');
+          characterSpan.classList.add('correct');
+
+          // Cursor logic
+          if (previousCharacterSpan !== null) {
+            previousCharacterSpan.classList.remove('current');
+            console.log("PREVIOUS", previousCharacterSpan)
+            characterSpan.classList.add('current');
+          }
+
           // add to correctCounter and do some math to calculate points
           setCorrectCounter(correctCounter + 1);
           if (DEBUG) console.log("CORRECT", correctCounter);
@@ -196,7 +215,14 @@ function CodePlay({ codeBlocksData }) {
         } else {
           if (DEBUG) console.log(keyCode);
           if (DEBUG) console.log("incorrect")
-          document.querySelector(`span.${"index-" + currCharIndex}`).classList.add('incorrect');
+          characterSpan.classList.add('incorrect');
+
+          if (previousCharacterSpan !== null) {
+            previousCharacterSpan.classList.remove('current');
+            console.log("PREVIOUS", previousCharacterSpan)
+            characterSpan.classList.add('current');
+          }
+
           if (DEBUG) console.log(characters[currCharIndex], key)
         }
         setCurrCharIndex(currInput.length + 1);
@@ -244,14 +270,19 @@ function CodePlay({ codeBlocksData }) {
         <div className="typing-score-display">100</div>
         {CountUpTimer(100)}
         <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={handleKeyDown} />
-        <pre onClick={handleClickCode} className="typing-text">
+        <pre onClick={handleClickCode} className="typing-text wordwrap">
           {FINALCODE.map((letter, i) => {
-
-            if (letter == " " || letter == " ") {
+            if (letter == " ") {
               letter = "•";
               return <span key={i} className={"space index-" + i}>{letter}</span>
+            } else if (letter == "\n") {
+              letter = "↵";
+              return <span key={i} className={"space index-" + i}>{letter + "\n"}</span>
             }
-            return <span key={i} className={"index-" + i}>{letter}</span>
+            else {
+
+              return <span key={i} className={"index-" + i}>{letter}</span>
+            }
           }
           )}
 

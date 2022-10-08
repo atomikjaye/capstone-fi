@@ -29,6 +29,10 @@ button.nes-btn {
   color: rgb(74, 165, 46);
 }
 
+span {
+  position: relative;
+}
+
 .space.correct {
   background-color: rgba(146, 204, 65, 0.5);
   color: rgba(74, 165, 46, 0.2);
@@ -37,6 +41,24 @@ button.nes-btn {
 .space {
   color: rgba(0, 0, 0, 0.2);
 
+}
+
+pre {
+  border: 1px solid black;
+  height: 300px;
+}
+
+.wordwrap {
+  white-space: pre-wrap;
+  /* CSS3 */
+  white-space: -moz-pre-wrap;
+  /* Firefox */
+  white-space: -pre-wrap;
+  /* Opera <7 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* IE */
 }
 
 /* .space {
@@ -52,3 +74,23 @@ button.nes-btn {
   content: "•";
   color: rgba(0, 0, 0, 0.2);
 } */
+
+
+/* Cursor Animation */
+.current::after {
+  content: "";
+  width: 10px;
+  height: 2px;
+  top: 20px;
+  left: 0px;
+  position: absolute;
+  background-color: rgb(0, 0, 0);
+  display: inline-block;
+  animation: cursor-blink 1.2s infinite steps(2);
+}
+
+@keyframes cursor-blink {
+  0% {
+    opacity: 0;
+  }
+}
