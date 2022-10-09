@@ -24,6 +24,21 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def createConnect
+    @review = Review.new(review_params);
+    user_code_review = UserCodeReview.new(user_code_params);
+    
+    if @review.save && user_code_review.save
+      render json: {
+        review: @review,
+        user_code_review: user_code_review
+      }, status: :created, location: @review
+    else
+      render json: @review.errors, status: :unprocessable_entity
+    end
+    
+  end
+
   # PATCH/PUT /reviews/1
   def update
     if @review.update(review_params)
@@ -46,6 +61,10 @@ class ReviewsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def review_params
-      params.require(:review).permit(:content, :rating)
+      params.permit(:content, :rating)
+    end
+
+    def user_code_params
+      params.require(:code_id).permit(:review_id, :user_id)
     end
 end
