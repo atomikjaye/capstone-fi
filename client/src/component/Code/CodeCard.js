@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, useLocation, Link } from "react-router-dom";
+import "./CodeCard.css"
 // import { useState } from "react";
 
 
@@ -21,14 +22,30 @@ function CodeCard({ id, code, isHard, points, lang }) {
 
   return (
     <>
-      <div key={id}>
-        <textarea name="" id="" cols="50" rows="10" value={code} readOnly>
-        </textarea><br />
-        <strong>Ease Lvl:</strong> {isHard ? "Hard" : "Easy"}<br />
-        <strong>Points:</strong> {points}<br />
-        <strong>Language:</strong> {lang}
-        <Link to={`${pathname}/${id}`}> Find Code</Link>
+      <div key={id} className="code-card">
+        <section className="message-list">
+          <section className="message-left">
+            <div className="nes-balloon from-left">
+              {lang == "JavaScript" ?
+                <p className="nes-text is-success code-card-text">{lang}</p>
+                :
+                <p className="nes-text is-warning code-card-text">{lang}</p>
+              }
+              <div className="code-Info">
 
+                <strong>Ease Lvl:</strong> {isHard ? "Hard" : "Easy"}<br />
+                <strong>Points:</strong> {points}<br />
+                <strong>Language:</strong> {lang}
+              </div>
+              <div class="is-centered play-button">
+
+                <Link to={`${pathname}/${id}`} className="code-card-link">
+                  <button type="button" class="nes-btn is-warning">Play!</button>
+                </Link>
+              </div>
+            </div>
+          </section>
+        </section>
       </div>
     </>
   );

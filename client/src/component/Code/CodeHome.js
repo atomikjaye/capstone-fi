@@ -1,6 +1,7 @@
 import React from "react";
 
 import CodeCard from "./CodeCard";
+import "./CodeHome.css"
 
 function CodeHome({ codeBlocksData }) {
 
@@ -46,7 +47,7 @@ function CodeHome({ codeBlocksData }) {
   return (
     <>
       <h1>CODE LISTS</h1>
-      <div>
+      <div className="code-list">
         {displayCodeBlocks}
       </div>
 

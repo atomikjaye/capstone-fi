@@ -1,0 +1,16 @@
+.code-Info {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.code-card-text {
+  font-size: 1.3rem;
+}
+
+.code-card-link {
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.play-button {
+  margin-top: 20px;
+}

@@ -1,0 +1,24 @@
+.code-list {
+  min-width: 285px;
+  width: 100%;
+  max-width: 860px;
+  /* height: 100%; */
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: red; */
+  margin: 0px auto;
+}
+
+.code-card {
+  width: 285px;
+  /* border: 3px solid yellow; */
+}
+
+.nes-balloon {
+  width: 264px;
+  /* border: 3px solid yellow; */
+}
+
+.title {
+  margin-top: -1.9rem !important;
+}

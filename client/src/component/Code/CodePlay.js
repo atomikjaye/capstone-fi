@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import CodeTimer from "./CodeTimer";
 import "./CodePlay.css"
+import Review from "../Review/Review";
+import ReviewList from "../Review/ReviewList";
 
 function CodePlay({ codeBlocksData }) {
 
@@ -300,42 +302,48 @@ function CodePlay({ codeBlocksData }) {
   }
 
 
+
+
   return (
     <>
-      <div className="nes-container with-title is-centered is-rounded">
+      <div className="nes-container with-title is-rounded">
+        <h2 className="title">Play</h2>
+        <div className="is-centered">
 
-        <div className="typing-score-display">Total Points: {points}</div>
-        {/* <CountUpTimer = {timeLeft} /> */}
-        {CountUpTimer(timeLeft)}
-        <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={handleKeyDown} />
-        <pre onClick={handleClickCode} className="typing-text wordwrap">
-          {FINALCODE.map((letter, i) => {
-            if (letter == " ") {
-              letter = "•";
-              return <span key={i} className={"space index-" + i}>{letter}</span>
-            } else if (letter == "\n") {
-              letter = "↵";
-              return <span key={i} className={"space index-" + i}>{letter + "\n"}</span>
+          <div className="typing-score-display">Total Points: {points}</div>
+          {/* <CountUpTimer = {timeLeft} /> */}
+          {CountUpTimer(timeLeft)}
+          <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={handleKeyDown} />
+          <pre onClick={handleClickCode} className="typing-text wordwrap">
+            {FINALCODE.map((letter, i) => {
+              if (letter == " ") {
+                letter = "•";
+                return <span key={i} className={"space index-" + i}>{letter}</span>
+              } else if (letter == "\n") {
+                letter = "↵";
+                return <span key={i} className={"space index-" + i}>{letter + "\n"}</span>
+              }
+              else {
+
+                return <span key={i} className={"index-" + i}>{letter}</span>
+              }
             }
-            else {
+            )}
 
-              return <span key={i} className={"index-" + i}>{letter}</span>
-            }
-          }
-          )}
-
-        </pre>
+          </pre>
 
 
-        {/* <button className="nes-btn is-primary">Play Again</button> */}
-        <Link to="/">
-          <button className="nes-btn is-error">Go Home</button>
-        </Link>
-        &nbsp;
-        <button className="nes-btn" onClick={() => handleReset()}>Reset</button>
-        <div></div>
-
+          {/* <button className="nes-btn is-primary">Play Again</button> */}
+          <Link to="/">
+            <button className="nes-btn is-error">Go Home</button>
+          </Link>
+          &nbsp;
+          <button className="nes-btn" onClick={() => handleReset()}>Reset</button>
+          <div></div>
+        </div>
       </div>
+
+      <ReviewList reviews={codeBlock.reviews} />
     </>
   )
 
