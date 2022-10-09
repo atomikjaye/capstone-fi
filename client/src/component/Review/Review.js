@@ -7,7 +7,7 @@ import ReviewForm from './ReviewForm';
 
 export default function Review({ review }) {
 
-  const user = review.users[0];
+  const user = review.user;
 
   const { pathname } = useLocation();
   // const stars = () => {

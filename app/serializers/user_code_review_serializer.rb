@@ -1,4 +1,0 @@
-class UserCodeReviewSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :review_id, :code_id
-
-end

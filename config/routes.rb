@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :user_code_reviews
+  # resources :user_code_reviews
   resources :code_reviews
   resources :topics
   resources :code_topics
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get "/me", to: "users#show"
 
     #Adding a Code Review
-    post "/user_code_review", to: "reviews#createConnect"
+    post "/review", to: "reviews#create"
 
     get '*path',
     to: 'fallback#index',

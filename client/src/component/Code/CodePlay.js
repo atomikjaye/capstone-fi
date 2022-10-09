@@ -343,7 +343,7 @@ function CodePlay({ codeBlocksData }) {
         </div>
       </div>
 
-      <ReviewList reviews={codeBlock.reviews} />
+      <ReviewList codeId={codeId} reviews={codeBlock.reviews} />
     </>
   )
 

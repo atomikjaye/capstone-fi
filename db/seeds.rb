@@ -10,7 +10,6 @@ require 'json'
 
 User.destroy_all
 Review.destroy_all
-UserReview.destroy_all
 
 
 def createUser
@@ -47,12 +46,14 @@ end
 
 
 
-def createReviews
+def createReviews(user_id, code_id)
   content = Faker::Lorem.paragraph(sentence_count: 2, supplemental: true, random_sentences_to_add: 4) 
   rating = Faker::Number.within(range: 1.0..5.0)
   {
     content: content,
-    rating: rating
+    rating: rating,
+    code_id: code_id,
+    user_id: user_id
   }
 end
 
@@ -88,15 +89,15 @@ createCode();
 |index|
 # byebug
   user = User.create(createUser)
-  review = Review.create(createReviews)
+  review = Review.create(createReviews(user.id, index))
   # byebug
-  user_code_review = UserCodeReview.create(
-    {
-      user_id: user.id,
-      review_id: review.id,
-      code_id: index
-    }
-  )
+  # user_code_review = UserCodeReview.create(
+  #   {
+  #     user_id: user.id,
+  #     review_id: review.id,
+  #     code_id: index
+  #   }
+  # )
     # createTopics();
 
 }

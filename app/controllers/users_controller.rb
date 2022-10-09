@@ -29,6 +29,7 @@ class UsersController < ApplicationController
 
   def show_all
     users = User.all
+    # byebug
     render json:users
   end
 

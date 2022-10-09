@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import Review from './Review'
 import ReviewForm from './ReviewForm'
 
-export default function ReviewList({ reviews }) {
+export default function ReviewList({ codeId, reviews }) {
   const [addReview, setAddReview] = useState(false)
 
 
   const showReviews = reviews.map((review) => {
-    console.log("REVIEW", review.users[0].username)
+    console.log("REVIEW", review.user.username)
     return <Review
       review={review}
     />
@@ -40,7 +40,7 @@ export default function ReviewList({ reviews }) {
           {/* </div> */}
         </> :
         <>
-          <ReviewForm setAddReview={setAddReview} />
+          <ReviewForm codeId={codeId} setAddReview={setAddReview} />
         </>
       }
 

@@ -9,9 +9,8 @@ class User < ApplicationRecord
   # validates :first_name, presence: {message: 'First Name cannot be empty'} 
   validate :has_first_name
   
-  has_many :user_code_reviews
-  has_many :reviews, through: :user_code_reviews
-  has_many :codes, through: :user_code_reviews
+  has_many :reviews
+  has_many :codes, through: :reviews
 
   private 
   def has_first_name
