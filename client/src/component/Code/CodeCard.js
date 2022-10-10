@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { CodeContext } from "../../UserContext";
+import { UserContext, CodeContext } from "../../UserContext";
 import { Route, useLocation, Link } from "react-router-dom";
 import "./CodeCard.css"
 // import { useState } from "react";
@@ -8,6 +8,7 @@ import "./CodeCard.css"
 
 function CodeCard({ codeObj, id, code, isHard, points, lang }) {
   const { codeContext, setCodeContext } = useContext(CodeContext);
+  const { user } = useContext(UserContext);
 
   const { pathname } = useLocation();
   // const [user, setUser] = useState(null);
@@ -66,10 +67,14 @@ function CodeCard({ codeObj, id, code, isHard, points, lang }) {
                 <strong>Language:</strong> {lang}
               </div>
               <div class="is-centered play-button">
-
-                <Link to={`${pathname}/${id}`} onClick={() => handleCodeContext(codeObj)} className="code-card-link">
-                  <button type="button" class="nes-btn is-warning">Play!</button>
-                </Link>
+                {user ?
+                  <Link to={`${pathname}/${id}`} onClick={() => handleCodeContext(codeObj)} className="code-card-link">
+                    <button type="button" class="nes-btn is-warning">Play!</button>
+                  </Link> :
+                  <Link to={`/login`} onClick={() => handleCodeContext(codeObj)} className="code-card-link">
+                    <button type="button" class="nes-btn is-primary">Login to Play!</button>
+                  </Link>
+                }
               </div>
             </div>
           </section>

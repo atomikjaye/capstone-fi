@@ -38,6 +38,7 @@ export default function ReviewList({ codeId }) {
   const showReviews = reviews.map((review) => {
     console.log("REVIEW", review.user.username)
     return <Review
+      key={review.id}
       review={review}
     />
     // return <Review user={review.users[0].username}

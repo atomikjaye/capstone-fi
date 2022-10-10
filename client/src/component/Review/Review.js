@@ -20,7 +20,7 @@ export default function Review({ review }) {
   // const stars = () => {
   //   let starsArr = [];
   //   for (let index = 0; index < review.rating; index++) {
-  //     starsArr += <i class="nes-icon is-large star"></i>
+  //     starsArr += <i className="nes-icon is-large star"></i>
   //     console.log(starsArr)
   //     return starsArr
   //   }
@@ -59,8 +59,8 @@ export default function Review({ review }) {
 
   return (
     <>
-      <section class="review message-left">
-        <img src={user.avatar_url} className="avatar-url" />
+      <section className="review message-left">
+        <img src={revUser.avatar_url} className="avatar-url" />
 
         <div className="nes-balloon from-left">
           {isEditting ?

@@ -52,55 +52,78 @@ function SignUp() {
       });
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username:</label>
-      <input
-        type="text"
-        id="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      /><br />
-      <label htmlFor="firstName">First Name:</label>
-      <input
-        type="text"
-        id="firstName"
-        value={firstName}
-        onChange={(e) => setFirstName(e.target.value)}
-      /><br />
-      <label htmlFor="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      /><br />
-      <label htmlFor="avatarURL">Avatar URL:</label>
-      <input
-        type="text"
-        id="avatarURL"
-        value={avatarURL}
-        onChange={(e) => setAvatarURL(e.target.value)}
-      /><br />
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      /><br />
-      <label htmlFor="password_confirmation">Confirm Password:</label>
-      <input
-        type="password"
-        id="password_confirmation"
-        value={passwordConfirmation}
-        onChange={(e) => setPasswordConfirmation(e.target.value)}
-      /><br />
-      <button type="submit">{isSigningUp ? "Signing up..." : "Submit"}</button>
-      <br />
-      {errors.map((err) => (
-        <div key={err}>{err}</div>
-      ))}
-    </form>
+    <div className="nes-container is-rounded with-title">
+      <h2 class="title">SignUp Form</h2>
+
+      <form onSubmit={handleSubmit}>
+        <div className="nes-field">
+          <label htmlFor="username">Username:</label>
+          <input
+            className="nes-input"
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <br />
+        <div className="nes-field">
+          <label htmlFor="firstName">First Name:</label>
+          <input
+            className="nes-input"
+            type="text"
+            id="firstName"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          /><br />
+        </div>
+        <div className="nes-field">
+          <label htmlFor="email">Email:</label>
+          <input
+            className="nes-input"
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          /><br />
+        </div>
+        <div className="nes-field">
+          <label htmlFor="avatarURL">Avatar URL:</label>
+          <input
+            className="nes-input"
+            type="text"
+            id="avatarURL"
+            value={avatarURL}
+            onChange={(e) => setAvatarURL(e.target.value)}
+          /><br />
+        </div>
+        <div className="nes-field">
+          <label htmlFor="password">Password:</label>
+          <input
+            className="nes-input"
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          /><br />
+        </div>
+        <div className="nes-field">
+          <label htmlFor="password_confirmation">Confirm Password:</label>
+          <input
+            className="nes-input"
+            type="password"
+            id="password_confirmation"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+          /><br />
+        </div>
+        <button className="nes-btn is-success" type=" submit">{isSigningUp ? "Signing up..." : "Submit"}</button>
+        <br />
+        {errors.map((err) => (
+          <div key={err} className="nes-text is-error">{err}</div>
+        ))}
+      </form>
+    </div >
   );
 
 

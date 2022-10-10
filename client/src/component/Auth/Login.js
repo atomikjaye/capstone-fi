@@ -34,31 +34,41 @@ function Login() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1>Login</h1>
-      <label htmlFor="username">Username</label>
-      <input
-        type="text"
-        id="username"
-        autoComplete="off"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      /><br />
-      <label htmlFor="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        autoComplete="current-password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      /><br />
-      <button type="submit">{isLoading ? "Loading..." : "Login"}</button>
+    <div className="nes-container is-rounded with-title">
+      <form onSubmit={handleSubmit}>
+        <h1>Login</h1>
+        <div className="nes-field">
 
-      <br />
-      {errors.map((err) => (
-        <div key={err}>{err}</div>
-      ))}
-    </form>
+          <label htmlFor="username">Username</label>
+          <input
+            className="nes-input"
+            type="text"
+            id="username"
+            autoComplete="off"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          /><br />
+        </div>
+        <div className="nes-field">
+
+          <label htmlFor="password">Password</label>
+          <input
+            className="nes-input"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          /><br />
+        </div>
+        <button className="nes-btn is-success" type="submit">{isLoading ? "Loading..." : "Login"}</button>
+
+        <br />
+        {errors.map((err) => (
+          <div key={err} className="nes-text is-error">{err}</div>
+        ))}
+      </form>
+    </div>
   );
 }
 export default Login;
