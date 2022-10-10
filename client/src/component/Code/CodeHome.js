@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CodeContext } from "../../UserContext";
 
 import CodeCard from "./CodeCard";
 import "./CodeHome.css"
 
-function CodeHome({ codeBlocksData }) {
+function CodeHome() {
+  const { codeListContext, setCodeListContext } = useContext(CodeContext);
+  // if state exists
+  // if exists return State
+  // if not exist
+  //grab from local and set
+  // 
+
 
 
   // const { id } = useParams();
 
   // const [user, setUser] = useState(null);
   let displayCodeBlocks = null;
-  if (codeBlocksData == null) {
+  if (codeListContext == null) {
     console.log("Null Code")
   } else {
-    console.log(codeBlocksData[0]);
-    displayCodeBlocks = codeBlocksData.map((code) => {
+    console.log(codeListContext[0]);
+    displayCodeBlocks = codeListContext.map((code) => {
       return <CodeCard
         key={code.id}
         id={code.id}
@@ -22,6 +30,7 @@ function CodeHome({ codeBlocksData }) {
         isHard={code.is_hard}
         points={code.points}
         lang={code.lang}
+        codeObj={code}
       />
     })
   }

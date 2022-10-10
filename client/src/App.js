@@ -8,7 +8,7 @@ import NavBar from "./component/Base/NavBar"
 import Home from "./component/Home/Home"
 import CodeHome from "./component/Code/CodeHome"
 import CodePlay from "./component/Code/CodePlay"
-import { UserContext } from "./UserContext";
+import { UserContext, CodeContext } from "./UserContext";
 import UserProfile from "./component/User/UserProfile";
 import ErrorNotFound from "./component/Base/ErrorNotFound";
 
@@ -16,10 +16,15 @@ import ErrorNotFound from "./component/Base/ErrorNotFound";
 function App() {
   const [user, setUser] = useState(null);
   const [usersList, setUsersList] = useState(null);
+
+  const [codeContext, setCodeContext] = useState(null);
+  const [codeListContext, setCodeListContext] = useState(null);
+
   const [codeBlocks, setCodeBlocks] = useState(null);
   const { pathname } = useLocation();
 
   const value = useMemo(() => ({ user, setUser, usersList, setUsersList }), [user, setUser, usersList, setUsersList])
+  const valueCode = useMemo(() => ({ codeContext, setCodeContext, codeListContext, setCodeListContext }), [codeContext, setCodeContext, codeListContext, setCodeListContext])
   // const usersListValue = useMemo(() => ({ usersList, setUsersList }), [usersList, setUsersList])
 
   const fetchUsers = async () => {
@@ -32,7 +37,13 @@ function App() {
   const fetchCode = async () => {
     const r = await fetch("/codes");
     const code = await r.json();
-    setCodeBlocks(code)
+    setCodeListContext(code)
+    //SetLocal Storage
+    localStorage.setItem('codeList', JSON.stringify(code));
+
+
+
+    // setCodeBlocks(code)
     // console.log("Code from App.js Fetch", code);
   }
 
@@ -51,6 +62,34 @@ function App() {
     fetchUsers();
     fetchCode();
 
+    const setCodeListContextFunc = () => {
+      let localCode = JSON.parse(localStorage.getItem('codeList'));
+      // if codeListContext exist.. else
+      if (codeListContext) {
+        localStorage.setItem('codeList', JSON.stringify(codeListContext));
+        return codeListContext
+      } else if (localCode) {
+        setCodeContext(localCode)
+        return codeListContext
+      } else {
+        fetchCode();
+      }
+
+
+      if (codeListContext === null && JSON.parse == null) {
+        //variable
+        // need to
+        fetchCode()
+      } else if (codeListContext) {
+        return codeListContext
+      } else if (JSON.parse(localStorage.getItem('codeList'))) {
+        setCodeListContext(JSON.parse(localStorage.getItem('codeList')))
+      } else {
+        // navigate somewhere else
+        fetchCode();
+      }
+    }
+
   }, []);
 
   console.log(codeBlocks)
@@ -59,30 +98,32 @@ function App() {
   return (
     <>
       <UserContext.Provider value={value}>
+        <CodeContext.Provider value={valueCode}>
 
-        <NavBar />
-        <main>
-          {/* Here is where we decide which routes you can get hit to. */}
-          {user ? (
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
-              <Route path={`/code-home/:codeId`} element={<CodePlay codeBlocksData={codeBlocks} />} />
-              <Route path="/profile" element={<UserProfile />} />
-              <Route path="*" component={ErrorNotFound} />
-            </Routes>
-          ) : (
-            <Routes>
-              <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
-              {/* <Route path="/code-play" element={<CodePlay codeBlocksData={codeBlocks} />} /> */}
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/" element={<Home />} />
-              {/* <Route path="/profile" element={<Navigate to="/" />} /> */}
-              <Route path="*" element={<ErrorNotFound />} />
-            </Routes>
-          )}
-        </main>
+          <NavBar />
+          <main>
+            {/* Here is where we decide which routes you can get hit to. */}
+            {user ? (
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
+                <Route path={`/code-home/:codeId`} element={<CodePlay codeBlocksData={codeBlocks} />} />
+                <Route path="/profile" element={<UserProfile />} />
+                <Route path="*" component={ErrorNotFound} />
+              </Routes>
+            ) : (
+              <Routes>
+                <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
+                {/* <Route path="/code-play" element={<CodePlay codeBlocksData={codeBlocks} />} /> */}
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Home />} />
+                {/* <Route path="/profile" element={<Navigate to="/" />} /> */}
+                <Route path="*" element={<ErrorNotFound />} />
+              </Routes>
+            )}
+          </main>
+        </CodeContext.Provider>
       </UserContext.Provider>
     </>
   );

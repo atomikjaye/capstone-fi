@@ -1,12 +1,15 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
-import { UserContext } from "../../UserContext";
+import { UserContext, CodeContext } from "../../UserContext";
 import CodeTimer from "./CodeTimer";
 import "./CodePlay.css"
 import Review from "../Review/Review";
 import ReviewList from "../Review/ReviewList";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function CodePlay({ codeBlocksData }) {
+  const navigate = useNavigate();
+  const { codeContext, setCodeContext } = useContext(CodeContext);
 
   const COUNTDOWN_SECONDS = 30;
   // is game finished
@@ -43,12 +46,32 @@ function CodePlay({ codeBlocksData }) {
   // }
   let codeInputField = useRef(null);
 
+
+  const setCodeContextFunc = () => {
+    let localCode = JSON.parse(localStorage.getItem('singleCode'));
+    // if codeListContext exist.. else
+    if (codeContext) {
+      localStorage.setItem('singleCode', JSON.stringify(codeContext));
+      return codeContext
+    } else if (localCode) {
+      setCodeContext(localCode)
+      return codeContext
+    } else {
+      navigate('/')
+    }
+  }
+
+
   // Infinitw call w/o dependency
   useEffect(() => {
     codeInputField.current.focus();
     console.log("%c RELOADING...", CURRENT_CORRECT_CONSOLE)
     console.log(`This is the currentCharIndex: ${currCharIndex} + this is the correctCounter ${correctCounter}`)
   }, [currCharIndex, correctCounter])
+
+  useEffect(() => {
+    setCodeContextFunc();
+  }, [])
 
   // useEffect(() => {
   //   if (!timeLeft) {
@@ -59,12 +82,26 @@ function CodePlay({ codeBlocksData }) {
   // const user = useContext(UserContext);
   // if (DEBUG) console.log(codeBlocksData);
 
-  const codeBlock = codeBlocksData.find(code => code.id == codeId);
-  let strippedCode = codeBlock.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
+  console.log("CODE CONTEXT", codeContext)
+  const codeBlock = codeContext
+  console.log("CODE CONTEXT", codeBlock)
+  //****** SET SINGULAR CODE CODECONTEXT */
+  //****** SET SINGULAR CODE CODECONTEXT */
+
+
+  //****** SET SINGULAR CODE CODECONTEXT */
+  //****** SET SINGULAR CODE CODECONTEXT */
+
+
+
+  // const codeBlock = codeBlocksData.find(code => code.id == codeId);
+
+
+  let strippedCode = codeContext.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
   // let strippedCode = codeBlock.code_block;
   // let strippedCode = codeBlock.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
   let FINALCODE = strippedCode.split("");
-  let points = codeBlock.points;
+  let points = codeContext.points;
 
   console.log(codeBlock);
   console.log(FINALCODE);

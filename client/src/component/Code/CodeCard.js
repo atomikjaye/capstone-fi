@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CodeContext } from "../../UserContext";
 import { Route, useLocation, Link } from "react-router-dom";
 import "./CodeCard.css"
 // import { useState } from "react";
 
 
 
-function CodeCard({ id, code, isHard, points, lang }) {
-
+function CodeCard({ codeObj, id, code, isHard, points, lang }) {
+  const { codeContext, setCodeContext } = useContext(CodeContext);
 
   const { pathname } = useLocation();
   // const [user, setUser] = useState(null);
@@ -39,7 +40,7 @@ function CodeCard({ id, code, isHard, points, lang }) {
               </div>
               <div class="is-centered play-button">
 
-                <Link to={`${pathname}/${id}`} className="code-card-link">
+                <Link to={`${pathname}/${id}`} onClick={() => { setCodeContext(codeObj); console.log("WHAT THIS IS", codeContext) }} className="code-card-link">
                   <button type="button" class="nes-btn is-warning">Play!</button>
                 </Link>
               </div>

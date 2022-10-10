@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react'
-import { UserContext } from "../../UserContext";
+import { UserContext, CodeContext } from "../../UserContext";
 
 function ReviewForm({ codeId, setAddReview }) {
   const [content, setContent] = useState("")
   const [rating, setRating] = useState(0)
   const { user } = useContext(UserContext);
+  const { code } = useContext(CodeContext);
   const [errors, setErrors] = useState([]);
   // const [review_id, setReviewId] = useState(0)
   // const [code_id, setCodeId] = useState(0)
