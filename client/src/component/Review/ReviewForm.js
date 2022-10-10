@@ -1,17 +1,18 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserContext, CodeContext } from "../../UserContext";
 
 function ReviewForm({ codeId, setAddReview }) {
   const [content, setContent] = useState("")
   const [rating, setRating] = useState(0)
   const { user } = useContext(UserContext);
-  const { code } = useContext(CodeContext);
+  const { codeContext } = useContext(CodeContext);
   const [errors, setErrors] = useState([]);
+  const [isPosting, setIsPosting] = useState()
   // const [review_id, setReviewId] = useState(0)
   // const [code_id, setCodeId] = useState(0)
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     fetch("/review", {
       method: "POST",
       headers: {
@@ -30,7 +31,9 @@ function ReviewForm({ codeId, setAddReview }) {
           r.json().then((user) => {
             console.log("SENT", r)
             // setUser(user);
-            // navigate('/profile');
+            // navigate('');
+
+
           })
         } else {
           r.json().then((err) => {
@@ -41,6 +44,7 @@ function ReviewForm({ codeId, setAddReview }) {
 
       });
   }
+
 
   return (
     <>

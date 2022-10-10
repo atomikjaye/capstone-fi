@@ -1,9 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Review from './Review'
 import ReviewForm from './ReviewForm'
 
-export default function ReviewList({ codeId, reviews }) {
+export default function ReviewList({ codeId }) {
   const [addReview, setAddReview] = useState(false)
+  const [reviews, setReviews] = useState([])
+  // const 
+
+  //useEffecrt runs once on render
+  // Fetch all reviews that exist
+  // Set to variable
+  // All reviews.filter filter vs codeBlock Id and ref ID
+  // Render reviews
+
+  useEffect(() => {
+    fetch(`/codes/${codeId}`)
+      .then((r) => r.json())
+      .then((codeBlock) => setReviews(codeBlock.reviews))
+
+
+
+    // fetch("/me").then((r) => {
+    //   if (r.ok) {
+    //     r.json().then((user) => {
+    //       console.log(user);
+    //       setUser(user)
+    //     });
+    //   } else {
+    //     console.log("/me: No user set");
+    //   }
+
+
+
+  }, [])
 
 
   const showReviews = reviews.map((review) => {
