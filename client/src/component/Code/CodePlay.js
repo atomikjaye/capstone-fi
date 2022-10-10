@@ -365,7 +365,7 @@ function CodePlay({ codeBlocksData }) {
 
           <div className="typing-score-display">Total Points: {points}</div>
           {/* <CountUpTimer = {timeLeft} /> */}
-          {CountUpTimer(timeLeft)}
+          {CountUpTimer(30)}
           <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={handleKeyDown} />
           <pre onClick={handleClickCode} className="typing-text wordwrap">
             {FINALCODE.map((letter, i) => {
@@ -396,7 +396,7 @@ function CodePlay({ codeBlocksData }) {
         </div>
       </div>
 
-      <ReviewList codeId={codeId} reviews={CODEOBJ.reviews} />
+      <ReviewList codeId={codeId} />
     </>
   )
 
