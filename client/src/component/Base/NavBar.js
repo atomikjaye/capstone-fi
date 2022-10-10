@@ -18,6 +18,7 @@ function NavBar() {
   return (
     <header>
       <div>
+        <span style={{ marginRight: "20px", padding: "5px", borderRight: "4px solid black" }}>CODETYPR</span>
         <NavLink to="/" end>Home</NavLink> | <NavLink to="/code-home">Code</NavLink> |&nbsp;
 
         {user ? (
