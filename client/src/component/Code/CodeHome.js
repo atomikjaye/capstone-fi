@@ -5,15 +5,12 @@ import CodeCard from "./CodeCard";
 import "./CodeHome.css"
 
 function CodeHome() {
-  const { codeListContext, setCodeListContext } = useContext(CodeContext);
+  const { codeListContext } = useContext(CodeContext);
   // if state exists
   // if exists return State
   // if not exist
   //grab from local and set
   // 
-
-
-
   // const { id } = useParams();
 
   // const [user, setUser] = useState(null);

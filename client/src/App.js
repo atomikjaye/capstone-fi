@@ -47,6 +47,22 @@ function App() {
     // console.log("Code from App.js Fetch", code);
   }
 
+  const setCodeListContextFunc = () => {
+    let localCode = JSON.parse(localStorage.getItem('codeList'));
+    // if codeListContext exist.. else
+    if (codeListContext) {
+      localStorage.setItem('codeList', JSON.stringify(codeListContext));
+      console.log("CODELIST BEING SET to local Storage", codeListContext)
+      return codeListContext
+    } else if (localCode) {
+      setCodeListContext(localCode)
+      console.log("LOCALCODE is set, setting setCodeContext()", codeListContext)
+      return codeListContext
+    } else {
+      fetchCode();
+    }
+  }
+
   useEffect(() => {
     fetch("/me").then((r) => {
       if (r.ok) {
@@ -62,37 +78,27 @@ function App() {
     fetchUsers();
     fetchCode();
 
-    const setCodeListContextFunc = () => {
-      let localCode = JSON.parse(localStorage.getItem('codeList'));
-      // if codeListContext exist.. else
-      if (codeListContext) {
-        localStorage.setItem('codeList', JSON.stringify(codeListContext));
-        return codeListContext
-      } else if (localCode) {
-        setCodeContext(localCode)
-        return codeListContext
-      } else {
-        fetchCode();
-      }
 
 
-      if (codeListContext === null && JSON.parse == null) {
-        //variable
-        // need to
-        fetchCode()
-      } else if (codeListContext) {
-        return codeListContext
-      } else if (JSON.parse(localStorage.getItem('codeList'))) {
-        setCodeListContext(JSON.parse(localStorage.getItem('codeList')))
-      } else {
-        // navigate somewhere else
-        fetchCode();
-      }
-    }
+    setCodeListContextFunc()
+
+    // if (codeListContext === null && JSON.parse == null) {
+    //   //variable
+    //   // need to
+    //   fetchCode()
+    // } else if (codeListContext) {
+    //   return codeListContext
+    // } else if (JSON.parse(localStorage.getItem('codeList'))) {
+    //   setCodeListContext(JSON.parse(localStorage.getItem('codeList')))
+    // } else {
+    //   // navigate somewhere else
+    //   fetchCode();
+    // }
+
 
   }, []);
 
-  console.log(codeBlocks)
+  // console.log(codeBlocks)
 
 
   return (

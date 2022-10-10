@@ -46,32 +46,54 @@ function CodePlay({ codeBlocksData }) {
   // }
   let codeInputField = useRef(null);
 
-
   const setCodeContextFunc = () => {
-    let localCode = JSON.parse(localStorage.getItem('singleCode'));
+    let localCodeList = JSON.parse(localStorage.getItem('singleCode'));
     // if codeListContext exist.. else
-    if (codeContext) {
-      localStorage.setItem('singleCode', JSON.stringify(codeContext));
-      return codeContext
-    } else if (localCode) {
-      setCodeContext(localCode)
-      return codeContext
-    } else {
-      navigate('/')
-    }
+    console.log("setCODECONTEXTFUNC", localCodeList)
+    // if (codeContext) {
+    //   // debugger
+    //   localStorage.setItem('singleCode', JSON.stringify(codeContext));
+    //   console.log("CODE BEING SET to local Storage", codeContext)
+
+    //   return codeContext
+    // } else if (localCode) {
+    //   setCodeContext(localCode)
+    //   console.log("LOCALCODE is set, setting setCodeContext()", codeContext)
+
+    //   return codeContext
+    // } else if (codeContext == null) {
+    //   console.log("NO CODE")
+    //   // navigate('/code-home')
+    // }
   }
 
 
-  // Infinitw call w/o dependency
-  useEffect(() => {
-    codeInputField.current.focus();
-    console.log("%c RELOADING...", CURRENT_CORRECT_CONSOLE)
-    console.log(`This is the currentCharIndex: ${currCharIndex} + this is the correctCounter ${correctCounter}`)
-  }, [currCharIndex, correctCounter])
+
+
+
+  console.log("CODE CONTEXT CodePlay", codeContext)
+
+  const stateCode = codeContext ? codeContext.code_block : false
+  const localCode = JSON.parse(localStorage.getItem('singleCode'))
+
+  const CODEOBJ = codeContext ? codeContext : localCode
+  console.log("CODEBLOCK", CODEOBJ)
 
   useEffect(() => {
-    setCodeContextFunc();
+    setCodeContext(JSON.parse(localStorage.getItem('singleCode')))
+
+    // setCodeContextFunc();
+    console.log("CODE CONTEXT IS CALLED")
   }, [])
+
+  let strippedCode = CODEOBJ.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
+  // Infinitw call w/o dependency
+  // useEffect(() => {
+  //   codeInputField.current.focus();
+  //   console.log("%c RELOADING...", CURRENT_CORRECT_CONSOLE)
+  //   console.log(`This is the currentCharIndex: ${currCharIndex} + this is the correctCounter ${correctCounter}`)
+  // }, [currCharIndex, correctCounter])
+
 
   // useEffect(() => {
   //   if (!timeLeft) {
@@ -81,10 +103,7 @@ function CodePlay({ codeBlocksData }) {
 
   // const user = useContext(UserContext);
   // if (DEBUG) console.log(codeBlocksData);
-
-  console.log("CODE CONTEXT", codeContext)
   const codeBlock = codeContext
-  console.log("CODE CONTEXT", codeBlock)
   //****** SET SINGULAR CODE CODECONTEXT */
   //****** SET SINGULAR CODE CODECONTEXT */
 
@@ -97,14 +116,11 @@ function CodePlay({ codeBlocksData }) {
   // const codeBlock = codeBlocksData.find(code => code.id == codeId);
 
 
-  let strippedCode = codeContext.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
   // let strippedCode = codeBlock.code_block;
   // let strippedCode = codeBlock.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
   let FINALCODE = strippedCode.split("");
-  let points = codeContext.points;
+  let points = CODEOBJ.points
 
-  console.log(codeBlock);
-  console.log(FINALCODE);
 
   // function codeHTML() {
   //   strippedCode.split("").forEach((char, index) => {
@@ -380,7 +396,7 @@ function CodePlay({ codeBlocksData }) {
         </div>
       </div>
 
-      <ReviewList codeId={codeId} reviews={codeBlock.reviews} />
+      <ReviewList codeId={codeId} reviews={CODEOBJ.reviews} />
     </>
   )
 

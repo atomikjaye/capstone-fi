@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { CodeContext } from "../../UserContext";
 import { Route, useLocation, Link } from "react-router-dom";
 import "./CodeCard.css"
@@ -18,6 +18,33 @@ function CodeCard({ codeObj, id, code, isHard, points, lang }) {
   //   console.log(codeBlocksData[0]);
   // console.log(isHard)
   // }
+
+  console.log("CODE OBJECT", codeObj)
+
+  const handleCodeContext = (code) => {
+    setCodeContext(code)
+    localStorage.setItem('singleCode', JSON.stringify(code));
+  }
+
+  // useEffect(() => {
+  let localCode = JSON.parse(localStorage.getItem('singleCode'));
+  //   // if codeContext exist.. else
+  //   if (codeContext) {
+  //     localStorage.setItem('singleCode', JSON.stringify(codeContext));
+  //     console.log("LOCAL STORAGE BEING SET to local Storage", codeContext)
+  //     return
+  //   } else {
+  //     setCodeContext(localCode)
+  //     console.log("CODE CONTEXT is set, setting setCodeContext()", codeContext)
+  //     return
+  //   }
+  // }, [])
+
+  console.log("CODE CONTEXT CodeCard", codeContext)
+
+  const setCodeContextFunc = () => {
+
+  }
 
   // Use Effect Code Block Here?
 
@@ -40,7 +67,7 @@ function CodeCard({ codeObj, id, code, isHard, points, lang }) {
               </div>
               <div class="is-centered play-button">
 
-                <Link to={`${pathname}/${id}`} onClick={() => { setCodeContext(codeObj); console.log("WHAT THIS IS", codeContext) }} className="code-card-link">
+                <Link to={`${pathname}/${id}`} onClick={() => handleCodeContext(codeObj)} className="code-card-link">
                   <button type="button" class="nes-btn is-warning">Play!</button>
                 </Link>
               </div>
