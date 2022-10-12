@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   # resources :user_code_reviews
-  resources :code_reviews
+  # resources :code_reviews
   resources :topics
   resources :code_topics
   resources :codes
   resources :reviews
-  resources :user_reviews
+  # resources :user_reviews
   # resources :users , except: [:new, :edit]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # root "articles#index"
 
     # route to test your configuration
-    get '/hello', to: 'application#hello_world'
+    # get '/hello', to: 'application#hello_world'
     get '/users', to: 'users#show_all'
 
     # SignUp Form
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     get "/me", to: "users#show"
 
     #Adding a Code Review
-    post "/review", to: "reviews#create"
+    # post "/review", to: "reviews#create"
 
     get '*path',
     to: 'fallback#index',

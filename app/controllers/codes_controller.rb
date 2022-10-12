@@ -21,15 +21,17 @@ class CodesController < ApplicationController
     if @code.save
       render json: @code, status: :created, location: @code
     else
+      # TODO: Unpack errora full messages as in app controller
       render json: @code.errors, status: :unprocessable_entity
     end
   end
-
+  
   # PATCH/PUT /codes/1
   def update
     if @code.update(code_params)
       render json: @code
     else
+      # TODO: Unpack errora full messages as in app controller
       render json: @code.errors, status: :unprocessable_entity
     end
   end

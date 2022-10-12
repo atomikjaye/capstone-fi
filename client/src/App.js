@@ -8,6 +8,7 @@ import NavBar from "./component/Base/NavBar"
 import Home from "./component/Home/Home"
 import CodeHome from "./component/Code/CodeHome"
 import CodePlay from "./component/Code/CodePlay"
+import CodePlay2 from "./component/Code/CodePlay2"
 import { UserContext, CodeContext } from "./UserContext";
 import UserProfile from "./component/User/UserProfile";
 import ErrorNotFound from "./component/Base/ErrorNotFound";
@@ -113,7 +114,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/code-home" element={<CodeHome codeBlocksData={codeBlocks} />} />
-                <Route path={`/code-home/:codeId`} element={<CodePlay codeBlocksData={codeBlocks} />} />
+                <Route path={`/code-home/:codeId`} element={<CodePlay2 codeBlocksData={codeBlocks} />} />
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="*" component={ErrorNotFound} />
               </Routes>

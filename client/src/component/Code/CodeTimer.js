@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 function CodeTimer(seconds) {
   const [timeLeft, setTimeLeft] = useState(seconds);
-  const intervalRef = useRef();
+  const intervalRef = useRef(null);
 
   const startCountdown = useCallback(() => {
     console.log("starting countdown...");
@@ -25,7 +25,7 @@ function CodeTimer(seconds) {
     if (!timeLeft && intervalRef.current) {
       console.log("clearing timer...")
 
-      clearInterval(intervalRef.current)
+      return () => clearInterval(intervalRef.current)
     }
   }, [timeLeft, intervalRef])
 

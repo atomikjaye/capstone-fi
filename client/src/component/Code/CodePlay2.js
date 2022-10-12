@@ -6,6 +6,7 @@ import "./CodePlay.css"
 import Review from "../Review/Review";
 import ReviewList from "../Review/ReviewList";
 import { NavLink, useNavigate } from "react-router-dom";
+import CharacterDisplay from "./CodePlayComponents/CharacterDisplay";
 
 function CodePlay({ codeBlocksData }) {
   const navigate = useNavigate();
@@ -133,7 +134,7 @@ function CodePlay({ codeBlocksData }) {
 
 
   const handleKeyDown = (e) => {
-    startCountdown();
+    // startCountdown();
     // setCurrInput(e.target.value)
     // debugger
     const { value } = e.target;
@@ -218,7 +219,7 @@ function CodePlay({ codeBlocksData }) {
         // setCurrInput(currInput.s)
 
       } else {
-        let characterSpan = document.querySelector(`span.${"index-" + currCharIndex}`);
+        // let characterSpan = document.querySelector(`span.${"index-" + currCharIndex}`);
         let previousCharacterSpan = document.querySelector(`span.${"index-" + (currCharIndex - 1)}`);
         if (DEBUG) console.log(keyCode);
         if (characters[currCharIndex] === key) {
@@ -229,13 +230,13 @@ function CodePlay({ codeBlocksData }) {
           // change class
           // If currCharIndex is correct, add to the classList
           //
-          characterSpan.classList.add('correct');
+          // characterSpan.classList.add('correct');
 
           // Cursor logic
           if (previousCharacterSpan !== null) {
             previousCharacterSpan.classList.remove('current');
             console.log("PREVIOUS", previousCharacterSpan)
-            characterSpan.classList.add('current');
+            // characterSpan.classList.add('current');
           }
 
           // add to correctCounter and do some math to calculate points
@@ -245,12 +246,12 @@ function CodePlay({ codeBlocksData }) {
         } else {
           if (DEBUG) console.log(keyCode);
           if (DEBUG) console.log("incorrect")
-          characterSpan.classList.add('incorrect');
+          // characterSpan.classList.add('incorrect');
 
           if (previousCharacterSpan !== null) {
             previousCharacterSpan.classList.remove('current');
             console.log("PREVIOUS", previousCharacterSpan)
-            characterSpan.classList.add('current');
+            // characterSpan.classList.add('current');
           }
 
           if (DEBUG) console.log(characters[currCharIndex], key)
@@ -304,20 +305,27 @@ function CodePlay({ codeBlocksData }) {
     resetCountdown()
   }
 
-
+  console.log("STRIPPED CODE", strippedCode)
 
 
   return (
     <>
       <div className="nes-container with-title is-rounded">
-        <h2 className="title">Play</h2>
+        <h2 className="title">Play2</h2>
         <div className="is-centered">
 
           <div className="typing-score-display">Total Points: {points}</div>
           {/* <CountUpTimer = {timeLeft} /> */}
           {CountUpTimer(30)}
           <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={handleKeyDown} />
-          <pre onClick={handleClickCode} className="typing-text wordwrap">
+
+          <CharacterDisplay
+            className="typing-text wordwrap"
+            codeBlock={FINALCODE}
+            userInput={currInput}
+          />
+
+          {/* <pre onClick={handleClickCode} className="typing-text wordwrap">
             {FINALCODE.map((letter, i) => {
               if (letter == " ") {
                 letter = "•";
@@ -333,7 +341,7 @@ function CodePlay({ codeBlocksData }) {
             }
             )}
 
-          </pre>
+          </pre> */}
 
 
           {/* <button className="nes-btn is-primary">Play Again</button> */}
