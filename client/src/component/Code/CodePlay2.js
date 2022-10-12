@@ -291,8 +291,8 @@ function CodePlay({ codeBlocksData }) {
     return <div className="nes-badge"><span className="is-warning">Time: {time}</span></div>
   }
 
-  const $code = document.querySelector('.typing-text');
-  console.log($code)
+  // const $code = document.querySelector('.typing-text');
+  // console.log($code)
   /// AUTO SCROLL
   const autoscroll = () => {
 
@@ -305,7 +305,7 @@ function CodePlay({ codeBlocksData }) {
     resetCountdown()
   }
 
-  console.log("STRIPPED CODE", strippedCode)
+  // console.log("STRIPPED CODE", strippedCode)
 
 
   return (
