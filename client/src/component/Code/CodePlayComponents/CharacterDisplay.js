@@ -16,7 +16,7 @@ function CharacterDisplay({
         return <Character
           key={i}
           actual={char}
-          expected={typedCharacters[i]}
+          typed={typedCharacters[i]}
         />
       })}
     </pre>

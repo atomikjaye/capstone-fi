@@ -2,17 +2,19 @@ import cn from "classnames";
 import React from 'react'
 
 const Character = ({
-  actual, expected
+  actual, typed
 }) => {
-  const isCorrect = actual === expected
-  const isActual = actual === actual
-
+  const isCorrect = actual === typed
+  const isNotCorrect = actual !== typed
+  const isActual = actual
+  console.log("TYPED CHARACTER", typed)
 
   return (
     <span className={cn({
-      "hello": actual,
-      "incorrect": !isCorrect && !actual,
-      "correct": isCorrect
+      // "hello": actual,
+      "incorrect": !isCorrect && typed !== undefined,
+      "correct": isCorrect,
+      "": typed === undefined
     })}>
       {actual}
     </span>
