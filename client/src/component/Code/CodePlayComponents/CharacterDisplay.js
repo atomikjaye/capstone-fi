@@ -13,6 +13,13 @@ function CharacterDisplay({
   return (
     <pre className={className}>
       {codeBlock.map((char, i) => {
+        console.log("CHAR", char)
+        if (char === " ") {
+          char = "•"
+        }
+        if (char === "\n") {
+          char = "↵\n"
+        }
         return <Character
           key={i}
           actual={char}

@@ -171,7 +171,8 @@ function CodePlay({ codeBlocksData }) {
     // if (repeat !== true && (key != "Enter" && key != "Shift" && key != "Tab" && key != "Control")) {
     if (repeat !== true &&
       !(
-        (keyCode >= 9 && keyCode <= 31) ||
+        (keyCode >= 9 && keyCode <= 12) ||
+        (keyCode >= 14 && keyCode <= 31) ||
         (keyCode >= 33 && keyCode <= 46) ||
         (keyCode >= 91 && keyCode <= 145))) {
       // If character is a backspace and the Index is >= "0"
@@ -257,7 +258,13 @@ function CodePlay({ codeBlocksData }) {
           if (DEBUG) console.log(characters[currCharIndex], key)
         }
         setCurrCharIndex(currInput.length + 1);
-        setCurrInput(value + key)
+
+        if (keyCode === 13) {
+          let newKey = "↵"
+          setCurrInput(value + newKey)
+        } else {
+          setCurrInput(value + key)
+        }
       }
     }
     // if key is repeated,do not add to index
