@@ -7,12 +7,24 @@ import Review from "../Review/Review";
 import ReviewList from "../Review/ReviewList";
 import { NavLink, useNavigate } from "react-router-dom";
 import CharacterDisplay from "./CodePlayComponents/CharacterDisplay";
+import KeyboardEngine from "./CodePlayComponents/KeyboardEngine";
+
+// let State = "start" || "run" || "finish"
 
 function CodePlay({ codeBlocksData }) {
+  /* STATE STUFF */
+  const [state, setState] = useState("start")
+  const { cursor, currInput, keydownHandler, clearTyped, totalTyped, resetTotalTyped } = KeyboardEngine(state !== "finish");
+  const isStarting = state === "start"
+
+  console.log(state !== "finish")
+
+
   const navigate = useNavigate();
   const { codeContext, setCodeContext } = useContext(CodeContext);
 
   const COUNTDOWN_SECONDS = 30;
+
   // is game finished
 
   const [isFinished, setIsFinished] = useState(false);
@@ -23,7 +35,7 @@ function CodePlay({ codeBlocksData }) {
   // Index for currInput
   const [currCharIndex, setCurrCharIndex] = useState(0);
   // Current Input
-  const [currInput, setCurrInput] = useState("");
+  // const [currInput, setCurrInput] = useState("");
 
 
 
@@ -50,7 +62,7 @@ function CodePlay({ codeBlocksData }) {
   const setCodeContextFunc = () => {
     let localCodeList = JSON.parse(localStorage.getItem('singleCode'));
     // if codeListContext exist.. else
-    console.log("setCODECONTEXTFUNC", localCodeList)
+    // console.log("setCODECONTEXTFUNC", localCodeList)
     // if (codeContext) {
     //   // debugger
     //   localStorage.setItem('singleCode', JSON.stringify(codeContext));
@@ -78,7 +90,7 @@ function CodePlay({ codeBlocksData }) {
   const localCode = JSON.parse(localStorage.getItem('singleCode'))
 
   const CODEOBJ = codeContext ? codeContext : localCode
-  console.log("CODEBLOCK", CODEOBJ)
+  // console.log("CODEBLOCK", CODEOBJ)
 
   useEffect(() => {
     setCodeContext(JSON.parse(localStorage.getItem('singleCode')))
@@ -115,169 +127,134 @@ function CodePlay({ codeBlocksData }) {
     // Index for currInput
     setCurrCharIndex(0)
     // Current Input
-    setCurrInput("")
+    // setCurrInput("")
     // Counter for Points
     setCorrectCounter(0)
     resetCountdown()
 
     // get ARRAY OF SPAN CLASSES
     //REMOVE CLASSES
-    let spanCode = document.querySelectorAll(`span`);
-    console.log(spanCode)
+    // let spanCode = document.querySelectorAll(`span`);
+    // console.log(spanCode)
 
-    for (let i = 0; i < spanCode.length; i++) {
-      spanCode[i].classList.remove('incorrect');
-      spanCode[i].classList.remove('correct');
-      spanCode[i].classList.remove('current');
-    }
+    // for (let i = 0; i < spanCode.length; i++) {
+    //   spanCode[i].classList.remove('incorrect');
+    //   spanCode[i].classList.remove('correct');
+    //   spanCode[i].classList.remove('current');
+    // }
   }
 
 
-  const handleKeyDown = (e) => {
-    // startCountdown();
-    // setCurrInput(e.target.value)
-    // debugger
-    const { value } = e.target;
-    const { key } = e;
-    const { keyCode } = e;
-    const { repeat } = e;
+  // const handleKeyDown = (e) => {
+  //   // startCountdown();
 
-    // If keycode is in a certain range for letters and numbers
+  //   const { value } = e.target;
+  //   const { key } = e;
+  //   const { keyCode } = e;
+  //   const { repeat } = e;
 
-    if (DEBUG) console.log("BEFORE", e.target.value, e)
-    // Assigning characters to FINALCODE ARRAY
-    const characters = FINALCODE;
-    // Making currInput an ARRAY
-    // let typedChar = value.split("")[currCharIndex];
-    // debugger
-    // if (DEBUG) console.log("TYPED CHAR ARRAY", currInput.split(""))
-    // if (DEBUG) console.log("TYPED CHAR Index", typedChar)
-    // if (DEBUG) console.log(`% cINDEX + ${ currCharIndex }`, CURRENT_INDEX_CONSOLE)
+  //   // If keycode is in a certain range for letters and numbers
 
-    // We testing what inputs are taken in
-    // all numbers and letters
-    // 48 - 90
-    // 186 > 222 random stuff
+  //   // Assigning characters to FINALCODE ARRAY
+  //   const characters = FINALCODE;
 
+  //   if (repeat !== true &&
+  //     !(
+  //       (keyCode >= 9 && keyCode <= 12) ||
+  //       (keyCode >= 14 && keyCode <= 31) ||
+  //       (keyCode >= 33 && keyCode <= 46) ||
+  //       (keyCode >= 91 && keyCode <= 145))) {
+  //     // FINAL COMMENT: If character is a backspace and the Index is >= "0"
+  //     if (keyCode === 8 && currInput.length >= 0) {
 
+  //       // FINAL COMMENT: Here we reassign currInput to the string minus last character
+  //       let newCurrInput = currInput.slice(0, -1)
+  //       setCurrInput(newCurrInput);
 
+  //       // remove one from correct
 
+  //       // FINAL COMMENT: Here we get the current index - 1 (state isn't updating quickly enough)
+  //       const newCharIndex = currCharIndex - 1;
+  //       // maybe keep track of backspaces for points
+  //       if (DEBUG) console.log("currInput ARRAY IN Backspace", currInput.split(""))
 
-    //if ((key > 48 && key < 90) || (key >= 186 && key <= 222))  // Include Only letters and symbols
-    // ^ Letters & Numbers     ^ Symbols
-    // if ((key >= 8 && key <= 46) || (key >= 91 && key <= 145)) // LETTERS and symbols ONLY
-    //    
+  //       // FINAL COMMENT: We query select from document 
+  //       let characterSpan = document.querySelector(`span.${"index-" + newCharIndex}`);
+  //       let nextCharacterSpan = document.querySelector(`span.${"index-" + (newCharIndex + 1)}`);
 
-    // if (repeat !== true && (key != "Enter" && key != "Shift" && key != "Tab" && key != "Control")) {
-    if (repeat !== true &&
-      !(
-        (keyCode >= 9 && keyCode <= 12) ||
-        (keyCode >= 14 && keyCode <= 31) ||
-        (keyCode >= 33 && keyCode <= 46) ||
-        (keyCode >= 91 && keyCode <= 145))) {
-      // If character is a backspace and the Index is >= "0"
-      if (keyCode === 8 && currInput.length >= 0) {
-        if (DEBUG) console.log("*********************************************************")
-        if (DEBUG) console.log("CURRENT INPUT BEFORE BACKSPACE", currInput)
-        if (DEBUG) console.log("SUBSTRING", currInput.substring(0, currInput.length - 1))
-
-        // FINAL COMMENT: Here we reassign currInput to the string minus last character
-        let newCurrInput = currInput.slice(0, -1)
-        setCurrInput(newCurrInput);
-
-        if (DEBUG) console.log("CURRENT INPUT AFTER BACKSPACE", currInput)
-        if (DEBUG) console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
-        // remove one from correct
-
-        // FINAL COMMENT: Here we get the current index - 1 (state isn't updating quickly enough)
-        const newCharIndex = currCharIndex - 1;
-        // maybe keep track of backspaces for points
-        if (DEBUG) console.log("currInput ARRAY IN Backspace", currInput.split(""))
-
-        // FINAL COMMENT: We query select from document 
-        let characterSpan = document.querySelector(`span.${"index-" + newCharIndex}`);
-        let nextCharacterSpan = document.querySelector(`span.${"index-" + (newCharIndex + 1)}`);
-
-        // there is no spanClass, we skip adding or removing class from list
-        if (characterSpan !== null) {
-          characterSpan.classList.remove('correct');
-          characterSpan.classList.remove('incorrect');
-          characterSpan.classList.remove('current');
-          characterSpan.classList.add('current');
-          nextCharacterSpan.classList.remove('current');
-          // Here we update Index and Correct Counter
-          setCurrCharIndex(currInput.length - 1);
-          if (DEBUG) console.log(`%c Current Index after class removal ${currCharIndex}`, CURRENT_INDEX_CONSOLE)
-          setCorrectCounter(correctCounter - 1);
-          if (DEBUG) console.log(`%c Current Index after class removal ${correctCounter}`, CURRENT_CORRECT_CONSOLE)
-        }
+  //       // there is no spanClass, we skip adding or removing class from list
+  //       if (characterSpan !== null) {
+  //         characterSpan.classList.remove('correct');
+  //         characterSpan.classList.remove('incorrect');
+  //         characterSpan.classList.remove('current');
+  //         characterSpan.classList.add('current');
+  //         nextCharacterSpan.classList.remove('current');
+  //         // Here we update Index and Correct Counter
+  //         setCurrCharIndex(currInput.length - 1);
+  //         if (DEBUG) console.log(`%c Current Index after class removal ${currCharIndex}`, CURRENT_INDEX_CONSOLE)
+  //         setCorrectCounter(correctCounter - 1);
+  //         if (DEBUG) console.log(`%c Current Index after class removal ${correctCounter}`, CURRENT_CORRECT_CONSOLE)
+  //       }
 
 
-        if (DEBUG) console.log("SPAN", document.querySelector(`span.${"index-" + currCharIndex}`));
-        if (DEBUG) console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
-        // debugger
-        if (DEBUG) console.log("*********************************************************")
-        // setCurrInput(currInput.s)
+  //       if (DEBUG) console.log("SPAN", document.querySelector(`span.${"index-" + currCharIndex}`));
+  //       if (DEBUG) console.log("CURRENT INDEX BEFORE IN BACKSPACE", currCharIndex)
+  //       // debugger
+  //       if (DEBUG) console.log("*********************************************************")
+  //       // setCurrInput(currInput.s)
 
-      } else {
-        // let characterSpan = document.querySelector(`span.${"index-" + currCharIndex}`);
-        let previousCharacterSpan = document.querySelector(`span.${"index-" + (currCharIndex - 1)}`);
-        if (DEBUG) console.log(keyCode);
-        if (characters[currCharIndex] === key) {
+  //     } else {
+  //       // let characterSpan = document.querySelector(`span.${"index-" + currCharIndex}`);
+  //       let previousCharacterSpan = document.querySelector(`span.${"index-" + (currCharIndex - 1)}`);
+  //       if (DEBUG) console.log(keyCode);
+  //       if (characters[currCharIndex] === key) {
 
-          if (DEBUG) console.log("correct")
-          // Init to inactive
-          // Ad person types it's either correct or incorrect
-          // change class
-          // If currCharIndex is correct, add to the classList
-          //
-          // characterSpan.classList.add('correct');
+  //         if (DEBUG) console.log("correct")
+  //         // Init to inactive
+  //         // Ad person types it's either correct or incorrect
+  //         // change class
+  //         // If currCharIndex is correct, add to the classList
+  //         //
+  //         // characterSpan.classList.add('correct');
 
-          // Cursor logic
-          if (previousCharacterSpan !== null) {
-            previousCharacterSpan.classList.remove('current');
-            console.log("PREVIOUS", previousCharacterSpan)
-            // characterSpan.classList.add('current');
-          }
+  //         // Cursor logic
+  //         if (previousCharacterSpan !== null) {
+  //           previousCharacterSpan.classList.remove('current');
+  //           console.log("PREVIOUS", previousCharacterSpan)
+  //           // characterSpan.classList.add('current');
+  //         }
 
-          // add to correctCounter and do some math to calculate points
-          setCorrectCounter(correctCounter + 1);
-          if (DEBUG) console.log("CORRECT", correctCounter);
-          if (DEBUG) console.log(characters[currCharIndex], key)
-        } else {
-          if (DEBUG) console.log(keyCode);
-          if (DEBUG) console.log("incorrect")
-          // characterSpan.classList.add('incorrect');
+  //         // add to correctCounter and do some math to calculate points
+  //         setCorrectCounter(correctCounter + 1);
+  //         if (DEBUG) console.log("CORRECT", correctCounter);
+  //         if (DEBUG) console.log(characters[currCharIndex], key)
+  //       } else {
+  //         if (DEBUG) console.log(keyCode);
+  //         if (DEBUG) console.log("incorrect")
+  //         // characterSpan.classList.add('incorrect');
 
-          if (previousCharacterSpan !== null) {
-            previousCharacterSpan.classList.remove('current');
-            console.log("PREVIOUS", previousCharacterSpan)
-            // characterSpan.classList.add('current');
-          }
+  //         if (previousCharacterSpan !== null) {
+  //           previousCharacterSpan.classList.remove('current');
+  //           console.log("PREVIOUS", previousCharacterSpan)
+  //           // characterSpan.classList.add('current');
+  //         }
 
-          if (DEBUG) console.log(characters[currCharIndex], key)
-        }
-        setCurrCharIndex(currInput.length + 1);
+  //         if (DEBUG) console.log(characters[currCharIndex], key)
+  //       }
+  //       setCurrCharIndex(currInput.length + 1);
 
-        if (keyCode === 13) {
-          let newKey = "↵"
-          setCurrInput(value + newKey)
-        } else {
-          setCurrInput(value + key)
-        }
-      }
-    }
-    // if key is repeated,do not add to index
-    // if key is any Shift... do not add to the Index
-    if (key != "Enter" && key != "Shift" && key != "Tab") {
-    }
-
-    // If ley is backspace, -1 from index, and find item in document and remove class name
-
-    if (DEBUG) console.log("AFTER", currInput)
+  //       if (keyCode === 13) {
+  //         let newKey = "↵"
+  //         setCurrInput(value + newKey)
+  //       } else {
+  //         setCurrInput(value + key)
+  //       }
+  //     }
+  //   }
 
 
-  }
+  //   // If ley is backspace, -1 from index, and find item in document and remove class name
+  // }
 
   // If focus is removed from input, you ca click the code and regain focus
   const handleClickCode = (e) => {
@@ -294,7 +271,7 @@ function CodePlay({ codeBlocksData }) {
   // codeHTML();
 
   // Count Up Timer
-  const CountUpTimer = (time) => {
+  const CountdownTimer = (time) => {
     return <div className="nes-badge"><span className="is-warning">Time: {time}</span></div>
   }
 
@@ -304,6 +281,16 @@ function CodePlay({ codeBlocksData }) {
   const autoscroll = () => {
 
   }
+
+  // as soon the user starts typing the first letter, we start
+  useEffect(() => {
+    if (isStarting) {
+      setState("run");
+      // startCountdown();
+      console.log("IS STARTING")
+    }
+  }, [isStarting, startCountdown])
+
 
 
   // Set Finished to true if timeLeft is 0
@@ -322,14 +309,15 @@ function CodePlay({ codeBlocksData }) {
         <div className="is-centered">
 
           <div className="typing-score-display">Total Points: {points}</div>
-          {/* <CountUpTimer = {timeLeft} /> */}
-          {CountUpTimer(30)}
-          <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={handleKeyDown} />
+          {/* <CountdownTimer timeLeft={timeLeft} /> */}
+          {CountdownTimer(30)}
+          <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={keydownHandler} />
 
           <CharacterDisplay
             className="typing-text wordwrap"
             codeBlock={FINALCODE}
             userInput={currInput}
+          // userInput={currInput}
           />
 
           {/* <pre onClick={handleClickCode} className="typing-text wordwrap">

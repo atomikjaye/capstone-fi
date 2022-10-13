@@ -2,24 +2,24 @@ import cn from "classnames";
 import React from 'react'
 
 const Character = ({
-  actual, typed
+  expected, typed
 }) => {
-  const isCorrect = actual === typed
-  const isSpaceOrEnterKey = actual === "•" || actual === "↵\n"
-  const isSpace = typed === " " && actual === "•"
-  const isEnter = typed === "↵" && actual === "↵\n"
+  const isCorrect = expected === typed
+  const isSpaceOrEnterKey = expected === "•" || expected === "↵\n"
+  const isSpace = typed === " " && expected === "•"
+  const isEnter = typed === "↵" && expected === "↵\n"
 
 
   return (
     <span className={cn({
-      // "hello": actual,
+      // "hello": expected,
       // "enter": isEnterKey,
       "space": isSpaceOrEnterKey,
       "incorrect": !isCorrect && typed !== undefined,
       "correct": isCorrect || isSpace || isEnter,
       "": typed === undefined
     })}>
-      {actual}
+      {expected}
     </span >
   )
 }

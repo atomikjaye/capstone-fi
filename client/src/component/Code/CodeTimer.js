@@ -25,7 +25,7 @@ function CodeTimer(seconds) {
     if (!timeLeft && intervalRef.current) {
       console.log("clearing timer...")
 
-      return () => clearInterval(intervalRef.current)
+      clearInterval(intervalRef.current)
     }
   }, [timeLeft, intervalRef])
 

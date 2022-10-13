@@ -13,7 +13,7 @@ function CharacterDisplay({
   return (
     <pre className={className}>
       {codeBlock.map((char, i) => {
-        console.log("CHAR", char)
+        // console.log("CHAR", char)
         if (char === " ") {
           char = "•"
         }
@@ -22,7 +22,7 @@ function CharacterDisplay({
         }
         return <Character
           key={i}
-          actual={char}
+          expected={char}
           typed={typedCharacters[i]}
         />
       })}
