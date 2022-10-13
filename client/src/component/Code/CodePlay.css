@@ -86,11 +86,15 @@ pre {
   position: absolute;
   background-color: rgb(0, 0, 0);
   display: inline-block;
-  animation: cursor-blink 1.2s infinite steps(2);
+  animation: cursor-blink 0.8s infinite ease-in-out;
 }
 
 @keyframes cursor-blink {
   0% {
+    opacity: 1;
+  }
+
+  100% {
     opacity: 0;
   }
 }

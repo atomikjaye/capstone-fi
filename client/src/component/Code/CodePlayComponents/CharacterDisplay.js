@@ -23,6 +23,8 @@ function CharacterDisplay({
         return <Character
           key={i}
           expected={char}
+          index={i}
+          totalTyped={typedCharacters.length}
           typed={typedCharacters[i]}
         />
       })}
