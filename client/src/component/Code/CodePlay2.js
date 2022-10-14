@@ -149,11 +149,6 @@ function CodePlay({ codeBlocksData }) {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-
-  }
-
   function closeModal() {
     setIsOpen(false);
   }
@@ -196,7 +191,6 @@ function CodePlay({ codeBlocksData }) {
         <button onClick={openModal}>Open Modal</button>
         <Modal
           isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
           onRequestClose={closeModal}
           contentLabel="Example Modal"
           className="nes-dialog is-rounded"
