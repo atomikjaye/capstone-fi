@@ -5,7 +5,9 @@ import Character from './Character'
 function CharacterDisplay({
   userInput,
   codeBlock,
-  className = ""
+  className = "",
+  setCorrectCounter,
+  correctCounter
 }) {
   // We split code from user Input that is given above.
   const typedCharacters = userInput.split("")

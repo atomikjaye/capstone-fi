@@ -2,9 +2,13 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 function KeyboardEngine(canType) {
   const [currentPlace, setCurrentPlace] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [currInput, setCurrInput] = useState("")
   const totalTyped = useRef(0)
-  const correct = useRef(0)
+  const backspaceCount = useRef(0)
+  const correctLetters = useRef(0)
+
+  // KEYBOARD KEYS ALLOWED
 
   const isKeyboardKeyAllowed = (code) => {
     return (code.startsWith("Key") ||
@@ -26,6 +30,9 @@ function KeyboardEngine(canType) {
   }
 
 
+
+
+
   const keydownHandler = useCallback(
     ({ key, code }) => {
       if (!canType || !isKeyboardKeyAllowed(code)) {
@@ -34,35 +41,77 @@ function KeyboardEngine(canType) {
         return
       }
       // console.log(e)
-      console.log("CODE HEY", code)
-      console.log("CODE HEY", key)
+
       switch (key) {
         case "Backspace":
           setCurrInput((prev) => prev.slice(0, -1));
-          // setCursor((cursor) => cursor - 1);
-          // totalTyped.current -= 1;
+          setCurrentIndex((currentIndex) => currentIndex - 1);
+          backspaceCount.current++
+          totalTyped.current -= 1;
           break;
         case "Enter":
-          console.log("CODE HEY", code)
           setCurrInput((prev) => prev.concat("↵"))
+          setCurrentIndex((currentIndex) => currentIndex + 1);
+          totalTyped.current += 1;
           break;
         default:
           setCurrInput((prev) => prev.concat(key));
-        // setCursor((cursor) => cursor + 1);
-        // totalTyped.current += 1;
+          setCurrentIndex((currentIndex) => currentIndex + 1);
+          totalTyped.current += 1;
       }
     }, [canType]
   )
 
 
-  // attach the keydown event listener to record keystrokes
+  // ERROR MATH STUFF
+  const countErrors = (typed, expected) => {
+    // We split expected CodeBlock an use that array to compare typed
+    // and reduce
+    const expectedCode = expected.split("")
 
+    return expectedCode.reduce((errors, expectedChar, i) => {
+      // Here we use reduce function to tally errors. the "previous value"
+      //is not errors, the currValue is the Char in the array, and i is the index
+      const typedChar = typed[i];
+      if (typedChar !== expectedChar) {
+        errors++
+      }
+      return errors
+    }, 0)
+  }
 
+  const calcAccuracy = (errors, totalChars) => {
+    let totalCorrect = totalChars - errors;
+    return (totalCorrect / totalChars) * 100;
+  }
+
+  const clearInput = () => {
+    setCurrInput("")
+    setCurrentIndex(0)
+  }
+
+  const resetCounters = () => {
+    totalTyped.current = 0
+    backspaceCount.current = 0
+  }
   return {
     currInput,
-    keydownHandler
+    keydownHandler,
+    totalTyped: totalTyped.current,
+    backspaceCount: backspaceCount.current,
+    currentIndex,
+    countErrors,
+    calcAccuracy,
+    clearInput,
+    resetCounters
   }
 }
+
+
+
+
+
+
 
 export default KeyboardEngine
 
@@ -76,12 +125,12 @@ export default KeyboardEngine
 //     switch (key) {
 //       case "Backspace":
 //         setTyped((prev) => prev.slice(0, -1));
-//         setCursor((cursor) => cursor - 1);
+//         setCurrentIndex((currentIndex) => currentIndex - 1);
 //         totalTyped.current -= 1;
 //         break;
 //       default:
 //         setTyped((prev) => prev.concat(key));
-//         setCursor((cursor) => cursor + 1);
+//         setCurrentIndex((currentIndex) => currentIndex + 1);
 //         totalTyped.current += 1;
 //     }
 //   },
@@ -153,7 +202,7 @@ export default KeyboardEngine
 //         //
 //         // characterSpan.classList.add('correct');
 
-//         // Cursor logic
+//         // currentIndex logic
 //         if (previousCharacterSpan !== null) {
 //           previousCharacterSpan.classList.remove('current');
 //           console.log("PREVIOUS", previousCharacterSpan)

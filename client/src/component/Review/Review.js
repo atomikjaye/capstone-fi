@@ -58,7 +58,7 @@ export default function Review({ review }) {
 
 
   return (
-    <>
+    <div key={review.id}>
       <section className="review message-left">
         <img src={revUser.avatar_url} className="avatar-url" />
 
@@ -145,6 +145,6 @@ export default function Review({ review }) {
           }
         </div>
       </section>
-    </>
+    </div>
   )
 }

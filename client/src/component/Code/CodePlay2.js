@@ -14,26 +14,50 @@ import KeyboardEngine from "./CodePlayComponents/KeyboardEngine";
 function CodePlay({ codeBlocksData }) {
   /* STATE STUFF */
   const [state, setState] = useState("start")
-  const { cursor, currInput, keydownHandler, clearTyped, totalTyped, resetTotalTyped } = KeyboardEngine(state !== "finish");
-  const isStarting = state === "start"
+  const {
+    currInput,
+    keydownHandler,
+    totalTyped,
+    backspaceCount,
+    currentIndex,
+    countErrors,
+    calcAccuracy,
+    clearInput,
+    resetCounters,
+  } = KeyboardEngine(state !== "finish");
+  const isStarting = state === "start" && currentIndex > 0
 
-  console.log(state !== "finish")
-
-
-  const navigate = useNavigate();
+  // Code Stuff
   const { codeContext, setCodeContext } = useContext(CodeContext);
+  const { codeId } = useParams();
+  const localCode = JSON.parse(localStorage.getItem('singleCode'))
+  const CODEOBJ = codeContext ? codeContext : localCode
+  let strippedCode = CODEOBJ.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
+  let FINALCODE = strippedCode.split("");
 
+  // Timer Stuff
   const COUNTDOWN_SECONDS = 30;
-
-  // is game finished
-
-  const [isFinished, setIsFinished] = useState(false);
-
   const { timeLeft, startCountdown, resetCountdown } = CodeTimer(COUNTDOWN_SECONDS);
 
-  const { codeId } = useParams();
-  // Index for currInput
+
+  // SCORE STUFF
+  const [errors, setErrors] = useState(0)
+  const sumErrors = () => {
+    const totalTypedCode = strippedCode.substring(0, currentIndex);
+    setErrors((prevErrors) => prevErrors + countErrors(currInput, totalTypedCode))
+  }
+
+  // Navigation Stuff
+  const navigate = useNavigate();
+
+
+  // is game finished
   const [currCharIndex, setCurrCharIndex] = useState(0);
+
+  // const [isFinished, setIsFinished] = useState(false);
+
+
+  // Index for currInput
   // Current Input
   // const [currInput, setCurrInput] = useState("");
 
@@ -45,7 +69,6 @@ function CodePlay({ codeBlocksData }) {
   // }
 
   // Counter for Points
-  const [correctCounter, setCorrectCounter] = useState(0);
   let DEBUG = true;
 
   //**  FOR PRETTY CONSOLES
@@ -80,17 +103,8 @@ function CodePlay({ codeBlocksData }) {
     // }
   }
 
+  // const stateCode = codeContext ? codeContext.code_block : false
 
-
-
-
-  console.log("CODE CONTEXT CodePlay", codeContext)
-
-  const stateCode = codeContext ? codeContext.code_block : false
-  const localCode = JSON.parse(localStorage.getItem('singleCode'))
-
-  const CODEOBJ = codeContext ? codeContext : localCode
-  // console.log("CODEBLOCK", CODEOBJ)
 
   useEffect(() => {
     setCodeContext(JSON.parse(localStorage.getItem('singleCode')))
@@ -99,7 +113,34 @@ function CodePlay({ codeBlocksData }) {
     console.log("CODE CONTEXT IS CALLED")
   }, [])
 
-  let strippedCode = CODEOBJ.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
+  //When user types first letter (i.e. currentIndex > 0) Start Countdown.
+  useEffect(() => {
+    if (isStarting) {
+      setState("run");
+      startCountdown();
+      console.log("IS STARTING")
+    }
+  }, [isStarting, startCountdown, currentIndex])
+
+  // When time is up, finish!!
+  useEffect(() => {
+    if (!timeLeft && state === "run") {
+      console.log("TIME IS UP!")
+      setState("finish")
+      sumErrors();
+
+    }
+  }, [timeLeft, sumErrors, state])
+
+  const handleReset = () => {
+    console.log("RESTART");
+    resetCountdown();
+    resetCounters();
+    setState("start")
+    setErrors(0)
+    clearInput()
+  }
+
   // Infinitw call w/o dependency
   // useEffect(() => {
   //   codeInputField.current.focus();
@@ -110,39 +151,11 @@ function CodePlay({ codeBlocksData }) {
 
   // const user = useContext(UserContext);
   // if (DEBUG) console.log(codeBlocksData);
-  const codeBlock = codeContext
-
-
-
-
-  // const codeBlock = codeBlocksData.find(code => code.id == codeId);
-
-
-  // let strippedCode = codeBlock.code_block;
-  // let strippedCode = codeBlock.code_block.replaceAll(/\/\*([\s\S]*?)\*\//g, "");
-  let FINALCODE = strippedCode.split("");
+  // const codeBlock = codeContext
   let points = CODEOBJ.points
 
-  const handleReset = () => {
-    // Index for currInput
-    setCurrCharIndex(0)
-    // Current Input
-    // setCurrInput("")
-    // Counter for Points
-    setCorrectCounter(0)
-    resetCountdown()
 
-    // get ARRAY OF SPAN CLASSES
-    //REMOVE CLASSES
-    // let spanCode = document.querySelectorAll(`span`);
-    // console.log(spanCode)
 
-    // for (let i = 0; i < spanCode.length; i++) {
-    //   spanCode[i].classList.remove('incorrect');
-    //   spanCode[i].classList.remove('correct');
-    //   spanCode[i].classList.remove('current');
-    // }
-  }
 
 
   // const handleKeyDown = (e) => {
@@ -262,42 +275,15 @@ function CodePlay({ codeBlocksData }) {
     codeInputField.current.focus();
   }
 
-  const typingMatch = () => {
-
-  }
-
-
-  // Add HTML for code block
-  // codeHTML();
-
   // Count Up Timer
   const CountdownTimer = (time) => {
     return <div className="nes-badge"><span className="is-warning">Time: {time}</span></div>
   }
 
-  // const $code = document.querySelector('.typing-text');
-  // console.log($code)
-  /// AUTO SCROLL
-  const autoscroll = () => {
-
-  }
-
   // as soon the user starts typing the first letter, we start
-  useEffect(() => {
-    if (isStarting) {
-      setState("run");
-      // startCountdown();
-      console.log("IS STARTING")
-    }
-  }, [isStarting, startCountdown])
 
 
 
-  // Set Finished to true if timeLeft is 0
-  if (timeLeft <= 0) {
-    // setIsFinished(true)
-    resetCountdown()
-  }
 
   // console.log("STRIPPED CODE", strippedCode)
 
@@ -310,7 +296,7 @@ function CodePlay({ codeBlocksData }) {
 
           <div className="typing-score-display">Total Points: {points}</div>
           {/* <CountdownTimer timeLeft={timeLeft} /> */}
-          {CountdownTimer(30)}
+          {CountdownTimer(timeLeft)}
           <input ref={codeInputField} className="input-field" value={currInput} onKeyDown={keydownHandler} />
 
           <CharacterDisplay
