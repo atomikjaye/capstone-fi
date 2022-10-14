@@ -9,6 +9,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import CharacterDisplay from "./CodePlayComponents/CharacterDisplay";
 import KeyboardEngine from "./CodePlayComponents/KeyboardEngine";
 import CodePopUp from "./CodePlayComponents/CodePopUp";
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 
 // let State = "start" || "run" || "finish"
 
@@ -47,6 +49,11 @@ function CodePlay({ codeBlocksData }) {
     const totalTypedCode = strippedCode.substring(0, currentIndex);
     setErrors((prevErrors) => prevErrors + countErrors(currInput, totalTypedCode))
   }
+
+
+  //MODAL STUFF
+  let subtitle;
+  const [modalIsOpen, setIsOpen] = React.useState(true);
 
   // Navigation Stuff
   const navigate = useNavigate();
@@ -100,7 +107,7 @@ function CodePlay({ codeBlocksData }) {
       setState("finish")
       sumErrors();
       // Here we want to display PopUp
-      <CodePopUp />
+      // <CodePopUp />
 
     }
   }, [timeLeft, sumErrors, state])
@@ -136,8 +143,20 @@ function CodePlay({ codeBlocksData }) {
   }
 
   // as soon the user starts typing the first letter, we start
+  // Modal.setAppElement('#CodePlay2');
 
+  function openModal() {
+    setIsOpen(true);
+  }
 
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
 
   // console.log("STRIPPED CODE", strippedCode)
@@ -159,28 +178,7 @@ function CodePlay({ codeBlocksData }) {
             codeBlock={FINALCODE}
             userInput={currInput}
             inputRef={codeInputField}
-          // userInput={currInput}
           />
-
-          {/* <pre onClick={handleClickCode} className="typing-text wordwrap">
-            {FINALCODE.map((letter, i) => {
-              if (letter == " ") {
-                letter = "•";
-                return <span key={i} className={"space index-" + i}>{letter}</span>
-              } else if (letter == "\n") {
-                letter = "↵";
-                return <span key={i} className={"space index-" + i}>{letter + "\n"}</span>
-              }
-              else {
-
-                return <span key={i} className={"index-" + i}>{letter}</span>
-              }
-            }
-            )}
-
-          </pre> */}
-
-
           {/* <button className="nes-btn is-primary">Play Again</button> */}
           <Link to="/">
             <button className="nes-btn is-error">Go Home</button>
@@ -192,6 +190,40 @@ function CodePlay({ codeBlocksData }) {
       </div>
 
       <ReviewList codeId={codeId} />
+
+      {/* MODAL STUFF */}
+      <div>
+        <button onClick={openModal}>Open Modal</button>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          contentLabel="Example Modal"
+          className="nes-dialog is-rounded"
+          overlayClassName="backdrop"
+        >
+          {/* <!-- Rounded dialog --> */}
+          <i onClick={closeModal} className="modal-close nes-icon close is-small"></i>
+          <form method="dialog">
+            <p className="title">Time's Up!!</p>
+            <hr />
+            <p>Check out your stats!</p>
+            <span className="nes-badge"><span className="is-error">Errors</span></span> {errors}<br />
+            <span className="nes-badge"><span className="is-warning">&nbsp;Accuracy&nbsp;</span></span> {calcAccuracy(errors, totalTyped)}%<br />
+            <span className="nes-badge"><span className="is-success">Total Words</span></span> {totalTyped}/{FINALCODE.length}
+            <br />
+            <hr />
+
+            {/* <menu className="dialog-menu"> */}
+            <button className="nes-btn">Play Again</button>&nbsp;
+            <button className="nes-btn is-primary">Go Home</button>
+            {/* </menu> */}
+          </form>
+
+        </Modal>
+      </div>
+
+
     </>
   )
 

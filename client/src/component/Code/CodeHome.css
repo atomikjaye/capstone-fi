@@ -19,6 +19,6 @@
   /* border: 3px solid yellow; */
 }
 
-.title {
+.with-title>.title {
   margin-top: -1.9rem !important;
 }

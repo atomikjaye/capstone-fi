@@ -89,6 +89,41 @@ pre {
   animation: cursor-blink 0.8s infinite ease-in-out;
 }
 
+.nes-dialog {
+  /* position: absolute;
+  right: 0;
+  left: 0; */
+  /* display: block; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: -moz-fit-content;
+  width: -webkit-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: -webkit-fit-content;
+  height: fit-content;
+  padding: 1em;
+  background: #fff;
+  /* margin: 50px auto; */
+}
+
+.backdrop {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-close {
+  /* width: fit-content; */
+  /* margin-top: 1px; */
+  float: right;
+}
+
 @keyframes cursor-blink {
   0% {
     opacity: 1;
