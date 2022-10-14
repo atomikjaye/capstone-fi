@@ -6,14 +6,17 @@ function CharacterDisplay({
   userInput,
   codeBlock,
   className = "",
-  setCorrectCounter,
-  correctCounter
+  inputRef
 }) {
   // We split code from user Input that is given above.
   const typedCharacters = userInput.split("")
 
+  const handleClickCode = (e) => {
+    inputRef.current.focus();
+  }
+
   return (
-    <pre className={className}>
+    <pre className={className} onClick={handleClickCode}>
       {codeBlock.map((char, i) => {
         // console.log("CHAR", char)
         if (char === " ") {

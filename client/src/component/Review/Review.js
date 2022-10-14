@@ -1,9 +1,8 @@
 import React, { useContext, useState } from 'react'
 import "./Review.css"
-import { Route, useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Moment from 'react-moment';
 import 'moment-timezone';
-import ReviewForm from './ReviewForm';
 import { UserContext } from "../../UserContext";
 
 export default function Review({ review }) {
@@ -60,7 +59,7 @@ export default function Review({ review }) {
   return (
     <div key={review.id}>
       <section className="review message-left">
-        <img src={revUser.avatar_url} className="avatar-url" />
+        <img src={revUser.avatar_url} className="avatar-url" alt="Avatar" />
 
         <div className="nes-balloon from-left">
           {isEditting ?
@@ -125,7 +124,7 @@ export default function Review({ review }) {
             }
           </div>
 
-          {user.id == review.user.id ?
+          {user.id === review.user.id ?
             <>
               <div className="toolbar">
                 {isEditting ?

@@ -17,22 +17,7 @@ export default function ReviewList({ codeId }) {
     fetch(`/codes/${codeId}`)
       .then((r) => r.json())
       .then((codeBlock) => setReviews(codeBlock.reviews))
-
-
-
-    // fetch("/me").then((r) => {
-    //   if (r.ok) {
-    //     r.json().then((user) => {
-    //       console.log(user);
-    //       setUser(user)
-    //     });
-    //   } else {
-    //     console.log("/me: No user set");
-    //   }
-
-
-
-  }, [])
+  }, [codeId])
 
 
   const showReviews = reviews.map((review) => {
