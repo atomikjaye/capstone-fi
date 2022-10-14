@@ -9,8 +9,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import CharacterDisplay from "./CodePlayComponents/CharacterDisplay";
 import KeyboardEngine from "./CodePlayComponents/KeyboardEngine";
 import CodePopUp from "./CodePlayComponents/CodePopUp";
-import ReactDOM from 'react-dom';
-import Modal from 'react-modal';
+
 
 // let State = "start" || "run" || "finish"
 
@@ -52,8 +51,8 @@ function CodePlay({ codeBlocksData }) {
 
 
   //MODAL STUFF
-  let subtitle;
-  const [modalIsOpen, setIsOpen] = React.useState(true);
+
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
   // Navigation Stuff
   const navigate = useNavigate();
@@ -106,6 +105,7 @@ function CodePlay({ codeBlocksData }) {
       console.log("TIME IS UP!")
       setState("finish")
       sumErrors();
+      setIsOpen(true);
       // Here we want to display PopUp
       // <CodePopUp />
 
@@ -116,6 +116,7 @@ function CodePlay({ codeBlocksData }) {
     console.log("RESTART");
     resetCountdown();
     resetCounters();
+    setState("finish")
     setState("start")
     setErrors(0)
     clearInput()
@@ -145,13 +146,6 @@ function CodePlay({ codeBlocksData }) {
   // as soon the user starts typing the first letter, we start
   // Modal.setAppElement('#CodePlay2');
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
 
 
   // console.log("STRIPPED CODE", strippedCode)
@@ -187,36 +181,16 @@ function CodePlay({ codeBlocksData }) {
       <ReviewList codeId={codeId} />
 
       {/* MODAL STUFF */}
-      <div>
-        <button onClick={openModal}>Open Modal</button>
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={closeModal}
-          contentLabel="Example Modal"
-          className="nes-dialog is-rounded"
-          overlayClassName="backdrop"
-        >
-          {/* <!-- Rounded dialog --> */}
-          <i onClick={closeModal} className="modal-close nes-icon close is-small"></i>
-          <form method="dialog">
-            <p className="title">Time's Up!!</p>
-            <hr />
-            <p>Check out your stats!</p>
-            <span className="nes-badge"><span className="is-error">Errors</span></span> {errors}<br />
-            <span className="nes-badge"><span className="is-warning">&nbsp;Accuracy&nbsp;</span></span> {calcAccuracy(errors, totalTyped)}%<br />
-            <span className="nes-badge"><span className="is-success">Total Words</span></span> {totalTyped}/{FINALCODE.length}
-            <br />
-            <hr />
 
-            {/* <menu className="dialog-menu"> */}
-            <button className="nes-btn">Play Again</button>&nbsp;
-            <button className="nes-btn is-primary">Go Home</button>
-            {/* </menu> */}
-          </form>
-
-        </Modal>
-      </div>
-
+      <CodePopUp
+        modalIsOpen={modalIsOpen}
+        setIsOpen={setIsOpen}
+        errors={errors}
+        accuracy={calcAccuracy(errors, totalTyped)}
+        totalTyped={totalTyped}
+        codeLength={FINALCODE.length}
+        handleReset={handleReset}
+      />
 
     </>
   )

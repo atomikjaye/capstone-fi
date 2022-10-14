@@ -73,7 +73,8 @@ function KeyboardEngine(canType) {
       // Here we use reduce function to tally errors. the "previous value"
       //is not errors, the currValue is the Char in the array, and i is the index
       const typedChar = typed[i];
-      if (typedChar !== expectedChar) {
+
+      if (!(expectedChar === "\n" && typedChar === "↵") && typedChar !== expectedChar) {
         errors++
       }
       return errors
@@ -82,7 +83,7 @@ function KeyboardEngine(canType) {
 
   const calcAccuracy = (errors, totalChars) => {
     let totalCorrect = totalChars - errors;
-    return (totalCorrect / totalChars) * 100;
+    return Math.round((totalCorrect / totalChars) * 100);
   }
 
   const clearInput = () => {

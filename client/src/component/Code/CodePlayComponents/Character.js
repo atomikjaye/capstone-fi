@@ -13,8 +13,6 @@ const Character = ({
 
   return (
     <span className={cn({
-      // "hello": expected,
-      // "enter": isEnterKey,
       "current": isCurrent,
       "space": isSpaceOrEnterKey,
       "incorrect": !isCorrect && typed !== undefined,
