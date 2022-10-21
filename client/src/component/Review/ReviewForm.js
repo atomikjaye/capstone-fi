@@ -13,7 +13,7 @@ function ReviewForm({ codeId, setAddReview }) {
 
   const handleSubmit = (e) => {
     // e.preventDefault();
-    fetch("/review", {
+    fetch("/reviews", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

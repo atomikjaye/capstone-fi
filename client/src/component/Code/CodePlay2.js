@@ -88,6 +88,7 @@ function CodePlay({ codeBlocksData }) {
 
   useEffect(() => {
     setCodeContext(JSON.parse(localStorage.getItem('singleCode')))
+    codeInputField.current.focus();
     // console.log("CODE CONTEXT IS CALLED")
   }, [])
 

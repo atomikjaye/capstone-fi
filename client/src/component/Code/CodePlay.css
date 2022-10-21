@@ -124,6 +124,11 @@ pre {
   float: right;
 }
 
+.input-field {
+  opacity: 0;
+  position: absolute;
+}
+
 @keyframes cursor-blink {
   0% {
     opacity: 1;
