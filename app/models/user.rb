@@ -16,6 +16,7 @@ class User < ApplicationRecord
   def has_first_name
     errors.add(:base, 'First Name can\'t be blank') if first_name.blank?
   end
+  
   def set_defaults
     
     self.avatar_url = Faker::Avatar.image(slug: self.username) if self.avatar_url.blank? #=> "https://robohash.org/my-own-slug.png?size=300x300&set=set1"'

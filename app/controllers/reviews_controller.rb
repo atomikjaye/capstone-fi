@@ -20,7 +20,7 @@ class ReviewsController < ApplicationController
     if @review.save
       render json: @review, status: :created, location: @review
     else
-      render json: @review.errors, status: :unprocessable_entity
+      render json: { errors:@review.error.full_messages }, status: :unprocessable_entity
     end
   end
   
@@ -30,13 +30,14 @@ class ReviewsController < ApplicationController
     if @review.update(review_params)
       render json: @review
     else
-      render json: @review.errors, status: :unprocessable_entity
+      render json: { errors:@review.error.full_messages }, status: :unprocessable_entity
     end
   end
 
   # DELETE /reviews/1
   def destroy
     @review.destroy
+    head :no_content
   end
 
   private

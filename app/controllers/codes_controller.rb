@@ -21,8 +21,7 @@ class CodesController < ApplicationController
     if @code.save
       render json: @code, status: :created, location: @code
     else
-      # TODO: Unpack errora full messages as in app controller
-      render json: @code.errors, status: :unprocessable_entity
+      render json: { errors: @code.errors.full_messages }, status: :unprocessable_entity     
     end
   end
   
@@ -31,14 +30,15 @@ class CodesController < ApplicationController
     if @code.update(code_params)
       render json: @code
     else
-      # TODO: Unpack errora full messages as in app controller
-      render json: @code.errors, status: :unprocessable_entity
+      render json: { errors: @code.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   # DELETE /codes/1
   def destroy
     @code.destroy
+    head :no_content
+
   end
 
   private

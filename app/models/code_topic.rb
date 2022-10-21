@@ -1,4 +1,4 @@
 class CodeTopic < ApplicationRecord
-  belongs_to :codes
-  belongs_to :topics
+  belongs_to :code
+  belongs_to :topic
 end

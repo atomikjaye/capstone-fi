@@ -1,3 +1,3 @@
 class CodeTopicSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :code_id, :topic_id
 end

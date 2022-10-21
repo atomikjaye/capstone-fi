@@ -32,17 +32,18 @@ def createUser
   }
 end
 
-# def createTopics
-#   Topic.create({ name: "data type" })
-#   Topic.create({ name: "variables" })
-#   Topic.create({ name: "conditionals" })
-#   Topic.create({ name: "arrays" })
-#   Topic.create({ name: "loops" })
-#   Topic.create({ name: "functions" })
-#   Topic.create({ name: "class" })
-#   Topic.create({ name: "objects" })
-  
-# end
+def createTopics
+  Topic.create({ name: "data type" })
+  Topic.create({ name: "variables" })
+  Topic.create({ name: "conditionals" })
+  Topic.create({ name: "arrays" })
+  Topic.create({ name: "loops" })
+  Topic.create({ name: "functions" })
+  Topic.create({ name: "class" })
+  Topic.create({ name: "objects" })  
+end
+
+
 
 
 
@@ -62,6 +63,7 @@ end
 # responseBody = HTTParty.get(response.body);
 # raw_code = HTTParty.get(JSON.parse(response.body)[0]["source"]);
 # byebug
+createTopics();
 
 def createCode
   response = HTTParty.get('https://raw.githubusercontent.com/atomikjaye/capstone-fi/main/codeBlockUrls.json');
@@ -79,9 +81,15 @@ def createCode
       lang: index["language"]
     })
     # pp codeBlock
+    codeTopic = CodeTopic.create(
+    {
+      code_id: codeBlock.id, 
+      topic_id: rand(0..7)
+    })
   end
-  
+
 end
+
 
 createCode();
 
@@ -90,6 +98,7 @@ createCode();
 # byebug
   user = User.create(createUser)
   review = Review.create(createReviews(user.id, index))
+
   # byebug
   # user_code_review = UserCodeReview.create(
   #   {
