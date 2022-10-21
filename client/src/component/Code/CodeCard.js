@@ -43,9 +43,15 @@ function CodeCard({ codeObj, id, code, isHard, points, lang }) {
 
   console.log("CODE CONTEXT CodeCard", codeContext)
 
-  const setCodeContextFunc = () => {
+  let topicsList = null;
+  const topics = codeObj.topics
+  topicsList = topics.map((topic) => {
+    console.log("✨✨✨✨TOPIC", topic)
+    return <a href="#" className="badge">
+      <span className="badge-text">{topic.name}</span>
+    </a>
+  })
 
-  }
 
   // Use Effect Code Block Here?
 
@@ -64,7 +70,7 @@ function CodeCard({ codeObj, id, code, isHard, points, lang }) {
 
                 <strong>Ease Lvl:</strong> {isHard ? "Hard" : "Easy"}<br />
                 <strong>Points:</strong> {points}<br />
-                <strong>Language:</strong> {lang}
+                <strong>Topics:</strong> {topicsList}
               </div>
               <div class="is-centered play-button">
                 {user ?

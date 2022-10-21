@@ -1,3 +1,30 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+}
+
+body {
+  flex-direction: column;
+  /* align-items: stretch; */
+}
+
+main {
+  width: 100%;
+  /* flex-grow: 1; */
+}
+
+footer {
+  margin-top: 20px;
+  width: 100%;
+  padding: 40px;
+  /* margin-top: auto; */
+  border-top: 4px solid black;
+
+}
+
 .App {
   text-align: center;
 }
@@ -32,6 +59,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

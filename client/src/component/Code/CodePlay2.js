@@ -103,9 +103,10 @@ function CodePlay({ codeBlocksData }) {
   useEffect(() => {
     if (!timeLeft && state === "run") {
       console.log("TIME IS UP!")
-      setState("finish")
       sumErrors();
       setIsOpen(true);
+      setPoints();
+      setState("finish")
       // Here we want to display PopUp
       // <CodePopUp />
 
@@ -135,9 +136,14 @@ function CodePlay({ codeBlocksData }) {
   // const user = useContext(UserContext);
   // if (DEBUG) console.log(codeBlocksData);
   // const codeBlock = codeContext
-  let points = CODEOBJ.points
+  const points = CODEOBJ.points
 
-
+  const setPoints = () => {
+    const accuracy = calcAccuracy(errors, totalTyped)
+    let pointsPercentage = (accuracy / 100) * points
+    console.log("🎉💃🏽🎉", pointsPercentage, accuracy, points)
+    // user.points += pointsPercentage
+  }
   // Count Up Timer
   const CountdownTimer = (time) => {
     return <div className="nes-badge"><span className="is-warning">Time: {time}</span></div>
@@ -154,7 +160,7 @@ function CodePlay({ codeBlocksData }) {
   return (
     <>
       <div className="nes-container with-title is-rounded">
-        <h2 className="title">Play2</h2>
+        <h2 className="title">Play</h2>
         <div className="is-centered">
 
           <div className="typing-score-display">Total Points: {points}</div>
@@ -169,8 +175,8 @@ function CodePlay({ codeBlocksData }) {
             inputRef={codeInputField}
           />
           {/* <button className="nes-btn is-primary">Play Again</button> */}
-          <Link to="/">
-            <button className="nes-btn is-error">Go Home</button>
+          <Link to="/code-home">
+            <button className="nes-btn is-error">Go Back</button>
           </Link>
           &nbsp;
           <button className="nes-btn" onClick={() => handleReset()}>Reset</button>
@@ -190,6 +196,7 @@ function CodePlay({ codeBlocksData }) {
         totalTyped={totalTyped}
         codeLength={FINALCODE.length}
         handleReset={handleReset}
+        points={points}
       />
 
     </>

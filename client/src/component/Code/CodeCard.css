@@ -14,3 +14,25 @@
 .play-button {
   margin-top: 20px;
 }
+
+.badge {
+  /* display: inline; */
+  background-color: rgba(147, 147, 147, 1);
+  border-radius: 10px;
+  margin: 0px;
+  transform: scale(0.7);
+  margin: 2px;
+}
+
+.badge:hover {
+  /* display: inline; */
+  background-color: rgba(147, 147, 147, 0.383);
+  text-decoration: none;
+}
+
+.badge-text {
+  color: white;
+  font-weight: bold;
+  font-size: 9pt;
+  padding: 10px;
+}

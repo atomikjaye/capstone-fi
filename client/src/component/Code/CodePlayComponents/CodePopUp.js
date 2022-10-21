@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { Link } from "react-router-dom";
+import { UserContext } from '../../../UserContext';
 
-function CodePopUp({ modalIsOpen, setIsOpen, errors, accuracy, totalTyped, codeLength, handleReset }) {
+function CodePopUp({ modalIsOpen, setIsOpen, errors, accuracy, totalTyped, codeLength, handleReset, pointsRev }) {
+  const { user } = useContext(UserContext);
 
 
   function openModal() {

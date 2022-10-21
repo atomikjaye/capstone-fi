@@ -52,7 +52,7 @@ function CodeHome() {
 
   return (
     <>
-      <h1>CODE LISTS</h1>
+      <h1 class="is-centered">CODE LISTS</h1>
       <div className="code-list">
         {displayCodeBlocks}
       </div>

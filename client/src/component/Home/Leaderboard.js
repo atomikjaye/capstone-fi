@@ -1,11 +1,12 @@
 import React from 'react'
-import Leaderboard_User from './Leaderboard_User'
+import LeaderboardUser from './LeaderboardUser'
 import "./Leaderboard.css"
 
 function Leaderboard() {
   return (
     <div>
-      <Leaderboard_User />
+      <h2 className="is-centered">Leaderboard</h2>
+      <LeaderboardUser />
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import "./Leaderboard.css"
 
-function Leaderboard_User() {
+function LeaderboardUser() {
   const navigate = useNavigate();
   const { usersList, setUsersList } = useContext(UserContext);
 
@@ -16,7 +16,7 @@ function Leaderboard_User() {
       return prev.points - curr.points
     })
 
-    userListPopulate = userListSort.map((user, index) => {
+    userListPopulate = userListSort.filter((users, index) => index < 10).map((user, index) => {
       return (
         <tr key={user.id}>
           <td className="is-centered">
@@ -63,4 +63,4 @@ function Leaderboard_User() {
 }
 
 
-export default Leaderboard_User
+export default LeaderboardUser

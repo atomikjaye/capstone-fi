@@ -5,6 +5,7 @@ import Login from "./component/Auth/Login";
 import SignUp from "./component/Auth/SignUp";
 import { Routes, Route, Navigate, useParams, useLocation } from "react-router-dom";
 import NavBar from "./component/Base/NavBar"
+import Footer from "./component/Base/Footer"
 import Home from "./component/Home/Home"
 import CodeHome from "./component/Code/CodeHome"
 import CodePlay from "./component/Code/CodePlay"
@@ -12,6 +13,7 @@ import CodePlay2 from "./component/Code/CodePlay2"
 import { UserContext, CodeContext } from "./UserContext";
 import UserProfile from "./component/User/UserProfile";
 import ErrorNotFound from "./component/Base/ErrorNotFound";
+import "./App.css"
 
 
 function App() {
@@ -130,6 +132,7 @@ function App() {
               </Routes>
             )}
           </main>
+          <Footer />
         </CodeContext.Provider>
       </UserContext.Provider>
     </>
