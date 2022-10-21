@@ -19,6 +19,6 @@ class User < ApplicationRecord
   
   def set_defaults
     
-    self.avatar_url = Faker::Avatar.image(slug: self.username) if self.avatar_url.blank? #=> "https://robohash.org/my-own-slug.png?size=300x300&set=set1"'
+    self.avatar_url = Faker::Avatar.image(slug: self.username).gsub("size=300x300", "") if self.avatar_url.blank? #=> "https://robohash.org/my-own-slug.png?size=300x300&set=set1"'
   end
 end

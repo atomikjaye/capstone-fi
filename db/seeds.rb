@@ -21,11 +21,12 @@ def createUser
   is_admin = false
   points = Faker::Number.number(digits: 5)
   # Return object
+  # avatar_url: avatar_url.delete "size=50x50",
   {
     username: username,
     first_name: first_name,
     email: email,
-    avatar_url: avatar_url,
+    avatar_url: avatar_url.gsub("size=300x300", ""),
     password: password,
     is_admin: is_admin,
     points: points
@@ -84,7 +85,7 @@ def createCode
     codeTopic = CodeTopic.create(
     {
       code_id: codeBlock.id, 
-      topic_id: rand(0..7)
+      topic_id: rand(1..7)
     })
   end
 
