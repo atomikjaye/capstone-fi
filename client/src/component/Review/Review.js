@@ -14,7 +14,7 @@ export default function Review({ review }) {
 
   const revUser = review.user;
 
-  console.log(review)
+  // console.log(review)
   const { pathname } = useLocation();
   // const stars = () => {
   //   let starsArr = [];
@@ -31,7 +31,7 @@ export default function Review({ review }) {
       method: "DELETE",
     }).then(r => r.json)
       .then(data => {
-        console.log("Successfully deleted: ", data)
+        // console.log("Successfully deleted: ", data)
         window.location.reload()
       })
 

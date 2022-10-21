@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :topics, only: [:index, :show, :create, :destroy]
   resources :code_topics, only: [:index, :create, :destroy]
   resources :codes
+  resources :users
   resources :reviews
   # resources :user_reviews
   # resources :users , except: [:new, :edit]
@@ -14,7 +15,8 @@ Rails.application.routes.draw do
 
     # route to test your configuration
     # get '/hello', to: 'application#hello_world'
-    get '/users', to: 'users#index'
+    # get '/users', to: 'users#index'
+    
 
     # SignUp Form
     post "/login", to: "sessions#create"

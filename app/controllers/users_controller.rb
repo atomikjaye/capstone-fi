@@ -17,6 +17,14 @@ class UsersController < ApplicationController
   def show
     render json: @current_user
   end
+   # PATCH/PUT /codes/1
+   def update
+    if user.update(user_params)
+      render json: user
+    else
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
 
   private
     # Only allow a list of trusted parameters through.

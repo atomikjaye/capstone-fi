@@ -4,9 +4,10 @@ import Modal from 'react-modal';
 import { Link } from "react-router-dom";
 import { UserContext } from '../../../UserContext';
 
-function CodePopUp({ modalIsOpen, setIsOpen, errors, accuracy, totalTyped, codeLength, handleReset, pointsRev }) {
+function CodePopUp({ modalIsOpen, setIsOpen, errors, accuracy, totalTyped, codeLength, handleReset, setPoints, pointsRev }) {
   const { user } = useContext(UserContext);
 
+  console.log("🎉🎉🎉🎉🎉🎉", accuracy, errors, totalTyped)
 
   function openModal() {
     setIsOpen(true);

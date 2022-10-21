@@ -14,6 +14,7 @@ import CodePopUp from "./CodePlayComponents/CodePopUp";
 // let State = "start" || "run" || "finish"
 
 function CodePlay({ codeBlocksData }) {
+  const { user, setUser } = useContext(UserContext);
   /* STATE STUFF */
   const [state, setState] = useState("start")
   const {
@@ -87,7 +88,7 @@ function CodePlay({ codeBlocksData }) {
 
   useEffect(() => {
     setCodeContext(JSON.parse(localStorage.getItem('singleCode')))
-    console.log("CODE CONTEXT IS CALLED")
+    // console.log("CODE CONTEXT IS CALLED")
   }, [])
 
   //When user types first letter (i.e. currentIndex > 0) Start Countdown.
@@ -95,14 +96,14 @@ function CodePlay({ codeBlocksData }) {
     if (isStarting) {
       setState("run");
       startCountdown();
-      console.log("IS STARTING")
+      // console.log("IS STARTING")
     }
   }, [isStarting, startCountdown, currentIndex])
 
   // When time is up, finish!!
   useEffect(() => {
     if (!timeLeft && state === "run") {
-      console.log("TIME IS UP!")
+      // console.log("TIME IS UP!")
       sumErrors();
       setIsOpen(true);
       setPoints();
@@ -114,7 +115,7 @@ function CodePlay({ codeBlocksData }) {
   }, [timeLeft, sumErrors, state])
 
   const handleReset = () => {
-    console.log("RESTART");
+    // console.log("RESTART");
     resetCountdown();
     resetCounters();
     setState("finish")
@@ -138,10 +139,12 @@ function CodePlay({ codeBlocksData }) {
   // const codeBlock = codeContext
   const points = CODEOBJ.points
 
+
   const setPoints = () => {
     const accuracy = calcAccuracy(errors, totalTyped)
     let pointsPercentage = (accuracy / 100) * points
-    console.log("🎉💃🏽🎉", pointsPercentage, accuracy, points)
+    // console.log("🎉💃🏽🎉", pointsPercentage, accuracy, points)
+
     // user.points += pointsPercentage
   }
   // Count Up Timer

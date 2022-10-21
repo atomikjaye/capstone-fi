@@ -33,7 +33,7 @@ function App() {
   const fetchUsers = async () => {
     const r = await fetch("/users");
     const users = await r.json();
-    console.log("Users App.js", users);
+    // console.log("Users App.js", users);
     setUsersList(users)
   }
 
@@ -55,11 +55,11 @@ function App() {
     // if codeListContext exist.. else
     if (codeListContext) {
       localStorage.setItem('codeList', JSON.stringify(codeListContext));
-      console.log("CODELIST BEING SET to local Storage", codeListContext)
+      // console.log("CODELIST BEING SET to local Storage", codeListContext)
       return codeListContext
     } else if (localCode) {
       setCodeListContext(localCode)
-      console.log("LOCALCODE is set, setting setCodeContext()", codeListContext)
+      // console.log("LOCALCODE is set, setting setCodeContext()", codeListContext)
       return codeListContext
     } else {
       fetchCode();
@@ -70,7 +70,7 @@ function App() {
     fetch("/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => {
-          console.log(user);
+          // console.log(user);
           setUser(user)
         });
       } else {

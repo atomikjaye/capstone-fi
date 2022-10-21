@@ -310,7 +310,7 @@ function CodePlay({ codeBlocksData }) {
   return (
     <>
       <div className="nes-container with-title is-rounded">
-        <h2 className="title">Play</h2>
+        <h2 className="title">Playd</h2>
         <div className="is-centered">
 
           <div className="typing-score-display">Total Points: {points}</div>

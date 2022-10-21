@@ -21,7 +21,7 @@ export default function ReviewList({ codeId }) {
 
 
   const showReviews = reviews.map((review) => {
-    console.log("REVIEW", review.user.username)
+    // console.log("REVIEW", review.user.username)
     return <Review
       key={review.id}
       review={review}
@@ -35,7 +35,7 @@ export default function ReviewList({ codeId }) {
     <>
       <div className="nes-container is-rounded with-title">
         <h2 className="title">Reviews</h2>
-        <section classNAme="message-list">
+        <section className="message-list">
 
           {showReviews}
 
@@ -49,7 +49,7 @@ export default function ReviewList({ codeId }) {
           <div className="is-centered play-button" style={{ marginBottom: "80px" }}>
 
             <div className="code-card-link">
-              <button type="button" onClick={() => setAddReview(true)} class="nes-btn is-warning">Write a Review!</button>
+              <button type="button" onClick={() => setAddReview(true)} className="nes-btn is-warning">Write a Review!</button>
             </div>
           </div>
           {/* </div> */}
